@@ -3,11 +3,13 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
+const { v4: uuidv4 } = require('uuid');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Absolute path to project root (onlinestore/)
-const ROOT_DIR = path.resolve(__dirname, '..');
+// Absolute path to project root (since this runs from either project root or server/)
+const ROOT_DIR = process.env.RAILWAY_ENVIRONMENT ? __dirname.replace('/server', '') : path.resolve(__dirname, '..');
 console.log('📁 ROOT_DIR:', ROOT_DIR);
 
 // ── Middleware ──────────────────────────────────────────────
@@ -22,9 +24,9 @@ app.use('/uploads', express.static(path.join(ROOT_DIR, 'uploads')));
 app.use(express.static(ROOT_DIR));
 
 // ── API Routes ──────────────────────────────────────────────
-app.use('/api/products', require('./routes/products'));
-app.use('/api/categories', require('./routes/categories'));
-app.use('/api/attributes', require('./routes/attributes'));
+app.use('/api/products', require(path.join(__dirname, 'routes/products')));
+app.use('/api/categories', require(path.join(__dirname, 'routes/categories')));
+app.use('/api/attributes', require(path.join(__dirname, 'routes/attributes')));
 
 // Health check
 app.get('/api/health', (req, res) => {
