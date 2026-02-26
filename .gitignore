@@ -1,6 +1,8 @@
 # Node
-server/node_modules/
 node_modules/
+server/node_modules/
+package-lock.json
+server/package-lock.json
 npm-debug.log*
 
 # Database (содержит реальные данные — не пушим)
