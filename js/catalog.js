@@ -114,46 +114,40 @@
             const isHit = p.badge === 'hit';
             const isNew = p.badge === 'new';
             const isSale = p.badge === 'sale';
-            const oldPriceHtml = p.old_price ? `<span class="product-old-price">${parseInt(p.old_price).toLocaleString('ru-KZ')} ₸</span>` : '';
+            const oldPriceHtml = p.old_price ? `<span class="product-card-price-old">${parseInt(p.old_price).toLocaleString('ru-KZ')} ₸</span>` : '';
             const desc = window._lang === 'kz' && p.description_kz ? p.description_kz : p.description;
 
-            let badgeHtml = '';
-            if (p.badge) {
-                const bType = isHit ? 'hit' : isNew ? 'new' : isSale ? 'sale' : 'none';
-                // Assuming window.i18n.t is available or fallback to default
-                const badgeText = (window.i18n && window.i18n.t) ? window.i18n.t(`badge.${p.badge}`) : p.badge;
-                badgeHtml = `<div class="product-badge badge-${bType}" data-i18n="badge.${p.badge}">${badgeText}</div>`;
-            }
-
-            const inStockHtml = p.in_stock
-                ? `<div class="product-stock stock-in" data-i18n="product.inStock">✓ ${(window.i18n && window.i18n.t) ? window.i18n.t('product.inStock') : 'В наличии'}</div>`
-                : `<div class="product-stock stock-out" data-i18n="product.outOfStock">✗ ${(window.i18n && window.i18n.t) ? window.i18n.t('product.outOfStock') : 'Нет в наличии'}</div>`;
-            const name = window._lang === 'kz' ? (p.name_kz || p.name) : p.name;
-            const matName = window._lang === 'kz' && p.material_kz ? p.material_kz : p.material;
-
             return `
-                <div class="product-card" onclick="window.openModal('${p.id}')">
-                    <div class="product-img-wrap">
-                        <img src="${p.img || '/images/category_sets.png'}" alt="${name}" class="product-img" loading="lazy" onerror="this.src='/images/category_sets.png'">
-                        ${badgeHtml}
-                        <button class="wishlist-btn" onclick="event.stopPropagation(); window.toggleWishlist(this)" title="В избранное">♡</button>
+                <div class="product-card" data-id="${p.id}" data-category="${p.category}">
+                    <div class="product-card-img-wrap">
+                        <img src="${p.img || '/images/category_sets.png'}" alt="${name}" loading="lazy" onerror="this.src='/images/category_sets.png'">
+                        <div class="product-card-actions">
+                            <button class="product-action-btn" data-action="wishlist" data-id="${p.id}" data-name="${name}" aria-label="В избранное">
+                                <svg class="heart" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                            </button>
+                            <button class="product-action-btn" data-action="add-to-cart"
+                                data-id="${p.id}" data-name="${name}" data-price="${p.price}"
+                                data-img="${p.img || '/images/category_sets.png'}" data-material="${matName}" aria-label="В корзину">
+                                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                            </button>
+                            <a href="product.html?id=${p.id}" class="product-action-btn" aria-label="Подробнее">
+                                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </a>
+                        </div>
+                        ${badgeHTML(p.badge)}
                     </div>
-                    <div class="product-info">
-                        <div class="product-title">${name}</div>
-                        <div class="product-price">
-                            ${parseInt(p.price).toLocaleString('ru-KZ')} ₸
+                    <div class="product-card-body">
+                        <div class="product-card-category">${catLabel(p.category)}</div>
+                        <div class="product-card-name">${name}</div>
+                        <div class="product-card-stars">
+                            <span class="stars">${starsHTML(p.rating)}</span>
+                            <span class="star-count">(${p.reviews || 0})</span>
+                        </div>
+                        <div class="product-card-price-row">
+                            <span class="product-card-price">${parseInt(p.price).toLocaleString('ru-KZ')} ₸</span>
                             ${oldPriceHtml}
                         </div>
-                        <div class="product-meta">
-                            <span>★ ${p.rating} (${p.reviews})</span>
-                            <span class="meta-dot">·</span>
-                            <span>${matName}</span>
-                        </div>
-                        ${inStockHtml}
                     </div>
-                    <button class="buy-btn" onclick="event.stopPropagation(); window.cart.add('${p.id}', '${name}', ${p.price}, '${p.img}')" ${!p.in_stock ? 'disabled' : ''}>
-                        <span data-i18n="product.addToCart">${(window.i18n && window.i18n.t) ? window.i18n.t('product.addToCart') : 'В корзину'}</span> 🛒
-                    </button>
                 </div>
             `;
         }).join('');

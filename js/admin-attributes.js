@@ -21,6 +21,8 @@ window.adminAttributes = (function () {
     };
 
     async function load() {
+        if (!els.tableBody) return; // Only load UI if we are on the admin page
+
         try {
             const res = await fetch(ENDPOINT);
             const data = await res.json();
