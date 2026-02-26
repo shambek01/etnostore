@@ -836,6 +836,20 @@
           атрибутами</h2>
         <button class="btn btn-primary" onclick="window.adminAttributes.openModal()">+ Добавить атрибут</button>
       </div>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <input class="search-input" id="search-attr" placeholder="🔍 Поиск по названию..."
+          oninput="window.adminAttributes.filterTable()">
+        <select class="filter-select" id="filter-attr-type" onchange="window.adminAttributes.filterTable()">
+          <option value="">Все типы</option>
+          <option value="metal">Металл</option>
+          <option value="stone">Камень</option>
+          <option value="badge">Метка</option>
+        </select>
+        <button class="btn btn-secondary btn-sm" onclick="window.adminAttributes.clearFilters()">Сбросить</button>
+      </div>
+
       <div class="table-wrap">
         <table>
           <thead>
@@ -936,7 +950,8 @@
       </form>
       <div class="modal-footer">
         <button class="btn btn-secondary" onclick="window.adminAttributes.closeModal()">Отмена</button>
-        <button class="btn btn-primary" onclick="window.adminAttributes.save()">💾 Сохранить</button>
+        <button class="btn btn-primary" id="btn-attr-save" onclick="window.adminAttributes.save(event)">💾
+          Сохранить</button>
       </div>
     </div>
   </div>

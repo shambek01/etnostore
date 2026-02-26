@@ -11,13 +11,14 @@ window.adminAttributes = (function () {
         modal: document.getElementById('attr-modal'),
         modalTitle: document.getElementById('attr-modal-title'),
         form: document.getElementById('attr-form'),
-        btnSubmit: document.getElementById('a-submit-btn'),
+        btnSubmit: document.getElementById('btn-attr-save'),
         // Form fields
-        id: document.getElementById('a-id'),
-        type: document.getElementById('a-type'),
-        value: document.getElementById('a-value'),
-        nameRu: document.getElementById('a-name-ru'),
-        nameKz: document.getElementById('a-name-kz')
+        id: document.getElementById('attr-edit-id'),
+        type: document.getElementById('attr-type'),
+        value: document.getElementById('attr-id'),
+        nameRu: document.getElementById('attr-name'),
+        nameKz: document.getElementById('attr-name-kz'),
+        color: document.getElementById('attr-color')
     };
 
     async function load() {
@@ -103,9 +104,11 @@ window.adminAttributes = (function () {
                 els.value.value = attr.value;
                 els.nameRu.value = attr.name_ru;
                 els.nameKz.value = attr.name_kz;
+                if (els.color && attr.color) els.color.value = attr.color;
                 els.modalTitle.textContent = 'Редактировать атрибут';
             }
         } else {
+            els.id.value = '';
             els.modalTitle.textContent = 'Новый атрибут';
         }
 
@@ -126,7 +129,8 @@ window.adminAttributes = (function () {
             type: els.type.value,
             value: els.value.value,
             name_ru: els.nameRu.value,
-            name_kz: els.nameKz.value
+            name_kz: els.nameKz.value,
+            color: els.color ? els.color.value : null
         };
 
         const method = id ? 'PUT' : 'POST';
