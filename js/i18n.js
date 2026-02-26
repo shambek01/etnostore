@@ -47,6 +47,8 @@
 
             // CATALOG
             'catalog.title': 'Каталог',
+            'catalog.category': 'Категория',
+            'catalog.price': 'Цена (₸)',
             'catalog.filters': 'Фильтры',
             'catalog.sort.popular': 'По популярности',
             'catalog.sort.new': 'Новинки',
@@ -148,6 +150,8 @@
 
             // CATALOG
             'catalog.title': 'Каталог',
+            'catalog.category': 'Санат',
+            'catalog.price': 'Баға (₸)',
             'catalog.filters': 'Сүзгілер',
             'catalog.sort.popular': 'Танымалдылық бойынша',
             'catalog.sort.new': 'Жаңалықтар',

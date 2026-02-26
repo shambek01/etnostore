@@ -45,41 +45,7 @@
         return `<span class="product-card-badge"><span class="badge ${cls}">${labels[lang] || labels.ru}</span></span>`;
     }
 
-    function renderCard(p) {
-        const img = p.img || '/images/category_necklaces.png';
-        return `
-      <div class="product-card" data-id="${p.id}" data-category="${p.category}">
-        <div class="product-card-img-wrap">
-          <img src="${img}" alt="${p.name}" loading="lazy" onerror="this.src='/images/category_sets.png'">
-          <div class="product-card-actions">
-            <button class="product-action-btn" data-action="wishlist" data-id="${p.id}" data-name="${p.name}" aria-label="В избранное">
-              <svg class="heart" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            </button>
-            <button class="product-action-btn" data-action="add-to-cart"
-              data-id="${p.id}" data-name="${p.name}" data-price="${p.price}"
-              data-img="${img}" data-material="${p.material || ''}" aria-label="В корзину">
-              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            </button>
-            <a href="product.html?id=${p.id}" class="product-action-btn" aria-label="Подробнее">
-              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </a>
-          </div>
-          ${badgeHTML(p.badge)}
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-category">${catLabel(p.category)}</div>
-          <div class="product-card-name">${p.name}</div>
-          <div class="product-card-stars">
-            <span class="stars">${starsHTML(p.rating)}</span>
-            <span class="star-count">(${p.reviews || 0})</span>
-          </div>
-          <div class="product-card-price-row">
-            <span class="product-card-price">${parseInt(p.price).toLocaleString('ru-KZ')} ₸</span>
-            ${p.old_price ? `<span class="product-card-price-old">${parseInt(p.old_price).toLocaleString('ru-KZ')} ₸</span>` : ''}
-          </div>
-        </div>
-      </div>`;
-    }
+
 
     /* ── PAGINATION ────────────────────────────────────────── */
     function totalPages() {
@@ -95,7 +61,6 @@
 
     function renderProducts(items) {
         const grid = document.getElementById('catalog-grid');
-        const countEl = document.getElementById('total-count'); // Assuming 'total-count' is the element for items.length
         if (!grid) return;
 
         if (!items.length) {
@@ -106,7 +71,6 @@
                     <button onclick="document.getElementById('filters-clear').click()" style="margin-top:1rem;padding:.5rem 1.2rem;background:var(--color-gold);color:#fff;border:none;border-radius:4px;cursor:pointer" data-i18n="catalog.resetFilters">Сбросить фильтры</button>
                 </div>
             `;
-            if (countEl) countEl.textContent = '0';
             return;
         }
 
@@ -116,6 +80,8 @@
             const isSale = p.badge === 'sale';
             const oldPriceHtml = p.old_price ? `<span class="product-card-price-old">${parseInt(p.old_price).toLocaleString('ru-KZ')} ₸</span>` : '';
             const desc = window._lang === 'kz' && p.description_kz ? p.description_kz : p.description;
+            const name = window._lang === 'kz' ? (p.name_kz || p.name) : p.name;
+            const matName = window._lang === 'kz' && p.material_kz ? p.material_kz : p.material;
 
             return `
                 <div class="product-card" data-id="${p.id}" data-category="${p.category}">
@@ -151,8 +117,6 @@
                 </div>
             `;
         }).join('');
-
-        if (countEl) countEl.textContent = items.length;
     }
     function pageSlice() {
         const start = (currentPage - 1) * PAGE_SIZE;
@@ -363,7 +327,7 @@
         }
 
         fetchProducts().then(() => {
-            renderFilterOptions();
+            // dynamic filter loading skipped for now
         });
 
         document.getElementById('sort-select')?.addEventListener('change', applyFiltersAndSort);
