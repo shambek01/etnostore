@@ -110,6 +110,10 @@ router.get('/:id', (req, res) => {
         const db = getDb();
         const product = db.prepare('SELECT * FROM products WHERE id = ?').get(req.params.id);
         if (!product) return res.status(404).json({ success: false, error: 'Товар не найден' });
+
+        const images = db.prepare('SELECT * FROM product_images WHERE product_id = ?').all(req.params.id);
+        product.images = images;
+
         res.json({ success: true, data: product });
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });
@@ -117,7 +121,7 @@ router.get('/:id', (req, res) => {
 });
 
 // ── POST /api/products ─────────────────────────────────────
-router.post('/', upload.single('img'), (req, res) => {
+router.post('/', upload.fields([{ name: 'img', maxCount: 1 }, { name: 'gallery', maxCount: 10 }]), (req, res) => {
     try {
         const db = getDb();
         const {
@@ -130,7 +134,7 @@ router.post('/', upload.single('img'), (req, res) => {
         }
 
         const id = uuidv4();
-        const img = req.file ? `/uploads/${req.file.filename}` : (req.body.img_url || '');
+        const img = (req.files && req.files['img'] && req.files['img'][0]) ? `/uploads/${req.files['img'][0].filename}` : (req.body.img_url || '');
 
         db.prepare(`
       INSERT INTO products (id, name, name_kz, category, price, old_price, rating, reviews, img, metal, stone, badge, material, description, description_kz, in_stock)
@@ -144,7 +148,21 @@ router.post('/', upload.single('img'), (req, res) => {
             in_stock === '0' ? 0 : 1,
         );
 
+        // Handle gallery images
+        if (req.files && req.files['gallery']) {
+            const insertImage = db.prepare('INSERT INTO product_images (id, product_id, img_url) VALUES (?, ?, ?)');
+            const insertMany = db.transaction((files) => {
+                for (const file of files) {
+                    insertImage.run(uuidv4(), id, `/uploads/${file.filename}`);
+                }
+            });
+            insertMany(req.files['gallery']);
+        }
+
         const created = db.prepare('SELECT * FROM products WHERE id = ?').get(id);
+        const images = db.prepare('SELECT * FROM product_images WHERE product_id = ?').all(id);
+        created.images = images;
+
         res.status(201).json({ success: true, data: created });
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });
@@ -152,7 +170,7 @@ router.post('/', upload.single('img'), (req, res) => {
 });
 
 // ── PUT /api/products/:id ──────────────────────────────────
-router.put('/:id', upload.single('img'), (req, res) => {
+router.put('/:id', upload.fields([{ name: 'img', maxCount: 1 }, { name: 'gallery', maxCount: 10 }]), (req, res) => {
     try {
         const db = getDb();
         const existing = db.prepare('SELECT * FROM products WHERE id = ?').get(req.params.id);
@@ -163,7 +181,7 @@ router.put('/:id', upload.single('img'), (req, res) => {
             rating, reviews, metal, stone, badge, material, description, description_kz, in_stock, img_url,
         } = req.body;
 
-        const img = req.file ? `/uploads/${req.file.filename}` : (img_url || existing.img);
+        const img = (req.files && req.files['img'] && req.files['img'][0]) ? `/uploads/${req.files['img'][0].filename}` : (img_url || existing.img);
 
         db.prepare(`
       UPDATE products SET
@@ -190,7 +208,21 @@ router.put('/:id', upload.single('img'), (req, res) => {
             req.params.id,
         );
 
+        // Handle gallery images
+        if (req.files && req.files['gallery']) {
+            const insertImage = db.prepare('INSERT INTO product_images (id, product_id, img_url) VALUES (?, ?, ?)');
+            const insertMany = db.transaction((files) => {
+                for (const file of files) {
+                    insertImage.run(uuidv4(), req.params.id, `/uploads/${file.filename}`);
+                }
+            });
+            insertMany(req.files['gallery']);
+        }
+
         const updated = db.prepare('SELECT * FROM products WHERE id = ?').get(req.params.id);
+        const images = db.prepare('SELECT * FROM product_images WHERE product_id = ?').all(req.params.id);
+        updated.images = images;
+
         res.json({ success: true, data: updated });
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });
@@ -205,6 +237,21 @@ router.delete('/:id', (req, res) => {
         if (!existing) return res.status(404).json({ success: false, error: 'Товар не найден' });
         db.prepare('DELETE FROM products WHERE id = ?').run(req.params.id);
         res.json({ success: true, message: 'Товар удалён' });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+// ── DELETE /api/products/:id/images/:imageId ───────────────
+router.delete('/:id/images/:imageId', (req, res) => {
+    try {
+        const db = getDb();
+        const imgParams = { id: req.params.imageId, product_id: req.params.id };
+        const existing = db.prepare('SELECT * FROM product_images WHERE id = @id AND product_id = @product_id').get(imgParams);
+        if (!existing) return res.status(404).json({ success: false, error: 'Изображение не найдено' });
+
+        db.prepare('DELETE FROM product_images WHERE id = @id').run(imgParams);
+        res.json({ success: true, message: 'Изображение удалено' });
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });
     }

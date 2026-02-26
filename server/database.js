@@ -53,6 +53,14 @@ function initSchema() {
       name_ru TEXT NOT NULL,
       name_kz TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS product_images (
+      id         TEXT PRIMARY KEY,
+      product_id TEXT NOT NULL,
+      img_url    TEXT NOT NULL,
+      is_main    INTEGER DEFAULT 0,
+      FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+    );
   `);
 
   // Seed products if table is empty
