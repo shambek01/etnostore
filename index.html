@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Altyn Biye — ювелирные украшения в казахском этно стиле. Ожерелья, серьги, браслеты, кольца и головные украшения ручной работы. Доставка по Казахстану.">
+  <title>Altyn Biye — Казахские Этно Украшения</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/header.css">
+  <link rel="stylesheet" href="styles/hero.css">
+  <link rel="stylesheet" href="styles/categories.css">
+  <link rel="stylesheet" href="styles/products.css">
+  <link rel="stylesheet" href="styles/footer.css">
+  <link rel="stylesheet" href="styles/responsive.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     ANNOUNCEMENT BAR
+═══════════════════════════════════════ -->
+<div class="announcement-bar">
+  🎁 Бесплатная доставка при заказе от 25 000 ₸ 
+  <a href="catalog.html">Смотреть коллекцию →</a>
+</div>
+
+<!-- ═══════════════════════════════════════
+     HEADER
+═══════════════════════════════════════ -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <!-- Logo -->
+    <div class="header-logo">
+      <a href="index.html">
+        <span class="logo-text">Altyn Biye</span>
+        <span class="logo-sub">Қазақ Зергерлігі</span>
+      </a>
+    </div>
+
+    <!-- Nav -->
+    <nav class="header-nav" aria-label="Основная навигация">
+      <ul>
+        <li><a href="#bestsellers">Хиты продаж</a></li>
+        <li><a href="catalog.html?filter=new">Новинки</a></li>
+        <li><a href="catalog.html">Каталог</a></li>
+        <li><a href="about.html">О бренде</a></li>
+        <li><a href="catalog.html?filter=sale" class="nav-sale">Распродажа</a></li>
+        <li><a href="contact.html">Контакты</a></li>
+      </ul>
+    </nav>
+
+    <!-- Icons -->
+    <div class="header-icons">
+      <button class="header-icon-btn search-toggle-btn" aria-label="Поиск" id="search-btn">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="header-icon-btn cart-open-btn" aria-label="Корзина" id="cart-btn">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" style="display:none">0</span>
+      </button>
+      <button class="burger-btn" aria-label="Меню" id="burger-btn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Search Dropdown -->
+<div class="search-dropdown" id="search-dropdown">
+  <form class="search-form" action="catalog.html" method="get">
+    <input type="text" name="q" placeholder="Поиск украшений...">
+    <button type="submit" aria-label="Найти">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+  </form>
+</div>
+
+<!-- Mobile Menu -->
+<nav class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-header">
+    <span class="logo-text">Altyn Biye</span>
+    <button class="mobile-menu-close" aria-label="Закрыть">✕</button>
+  </div>
+  <div class="mobile-menu-nav">
+    <a href="#bestsellers">Хиты продаж</a>
+    <a href="catalog.html?filter=new">Новинки</a>
+    <a href="catalog.html">Каталог</a>
+    <a href="about.html">О бренде</a>
+    <a href="contact.html">Контакты</a>
+    <a href="catalog.html?filter=sale" class="nav-sale">🔥 Распродажа</a>
+  </div>
+  <div class="mobile-menu-footer">
+    <div class="social-links">
+      <a href="https://instagram.com" aria-label="Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://tiktok.com" aria-label="TikTok">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.28 8.28 0 004.84 1.54V6.79a4.83 4.83 0 01-1.07-.1z"/></svg>
+      </a>
+      <a href="https://wa.me/77001234567" aria-label="WhatsApp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.994 0C5.372 0 0 5.373 0 11.994c0 2.121.555 4.107 1.527 5.842L0 24l6.335-1.502A11.945 11.945 0 0011.994 24C18.616 24 24 18.626 24 12.006 24 5.373 18.616 0 11.994 0zm0 21.818a9.817 9.817 0 01-5.004-1.369l-.359-.214-3.757.89.942-3.652-.235-.374A9.817 9.817 0 012.174 12c0-5.42 4.4-9.822 9.82-9.822 5.42 0 9.821 4.402 9.821 9.822 0 5.419-4.401 9.818-9.821 9.818z"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Cart Sidebar -->
+<aside class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-sidebar-header">
+    <h3>Ваша Корзина</h3>
+    <button class="cart-sidebar-close" aria-label="Закрыть корзину">✕</button>
+  </div>
+  <div class="cart-sidebar-body">
+    <!-- rendered by JS -->
+  </div>
+  <div class="cart-sidebar-footer" style="display:none">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal-label">Итого</span>
+      <span class="cart-subtotal-amount">0 ₸</span>
+    </div>
+    <button class="btn btn--primary btn--full">Оформить заказ</button>
+    <a href="https://kaspi.kz" target="_blank" class="cart-kaspi">
+      🛒 Купить на Kaspi.kz
+    </a>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════════
+     HERO
+═══════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <img src="images/hero_banner.png" alt="Казахские этно украшения" loading="eager">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-ornament"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Ручная работа · Казахстан</div>
+    <h1 class="hero-title">
+      Украшения с<br><em>душой степей</em>
+    </h1>
+    <p class="hero-subtitle">
+      Ювелирные изделия в традиционном казахском стиле.<br>
+      Каждое украшение — история нашего народа.
+    </p>
+    <div class="hero-cta">
+      <a href="catalog.html" class="btn btn--outline-white">Смотреть коллекцию</a>
+      <a href="about.html" class="btn btn--gold">О нашем бренде</a>
+    </div>
+  </div>
+  <div class="hero-scroll" role="button" aria-label="Прокрутить вниз">
+    <span>Листать</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CATEGORIES
+═══════════════════════════════════════ -->
+<section class="categories-section">
+  <div class="container">
+    <p class="section-subtitle aos">Коллекции</p>
+    <h2 class="section-title aos aos-delay-1">Наши Категории</h2>
+    <div class="section-divider aos aos-delay-2"><span>✦</span></div>
+
+    <div class="categories-grid">
+      <!-- Large: Ожерелья -->
+      <a href="catalog.html?cat=necklaces" class="category-card">
+        <img src="images/category_necklaces.png" alt="Ожерелья" loading="lazy">
+        <div class="category-card-overlay"></div>
+        <div class="category-card-body">
+          <span class="category-card-label">Коллекция</span>
+          <h3 class="category-card-title">Ожерелья</h3>
+          <span class="category-card-btn">Смотреть всё</span>
+        </div>
+        <span class="category-count">24 товара</span>
+      </a>
+
+      <!-- Серьги -->
+      <a href="catalog.html?cat=earrings" class="category-card">
+        <img src="images/category_earrings.png" alt="Серьги" loading="lazy">
+        <div class="category-card-overlay"></div>
+        <div class="category-card-body">
+          <span class="category-card-label">Коллекция</span>
+          <h3 class="category-card-title">Серьги</h3>
+          <span class="category-card-btn">Смотреть всё</span>
+        </div>
+        <span class="category-count">36 товаров</span>
+      </a>
+
+      <!-- Браслеты -->
+      <a href="catalog.html?cat=bracelets" class="category-card">
+        <img src="images/category_bracelets.png" alt="Браслеты" loading="lazy">
+        <div class="category-card-overlay"></div>
+        <div class="category-card-body">
+          <span class="category-card-label">Коллекция</span>
+          <h3 class="category-card-title">Браслеты</h3>
+          <span class="category-card-btn">Смотреть всё</span>
+        </div>
+        <span class="category-count">18 товаров</span>
+      </a>
+
+      <!-- Кольца -->
+      <a href="catalog.html?cat=rings" class="category-card">
+        <img src="images/category_rings.png" alt="Кольца" loading="lazy">
+        <div class="category-card-overlay"></div>
+        <div class="category-card-body">
+          <span class="category-card-label">Коллекция</span>
+          <h3 class="category-card-title">Кольца</h3>
+          <span class="category-card-btn">Смотреть всё</span>
+        </div>
+        <span class="category-count">30 товаров</span>
+      </a>
+
+      <!-- Головные украшения -->
+      <a href="catalog.html?cat=headpieces" class="category-card">
+        <img src="images/category_headpiece.png" alt="Головные украшения" loading="lazy">
+        <div class="category-card-overlay"></div>
+        <div class="category-card-body">
+          <span class="category-card-label">Коллекция</span>
+          <h3 class="category-card-title">Головные украшения</h3>
+          <span class="category-card-btn">Смотреть всё</span>
+        </div>
+        <span class="category-count">12 товаров</span>
+      </a>
+
+      <!-- Наборы -->
+      <a href="catalog.html?cat=sets" class="category-card">
+        <img src="images/category_sets.png" alt="Наборы" loading="lazy">
+        <div class="category-card-overlay"></div>
+        <div class="category-card-body">
+          <span class="category-card-label">Коллекция</span>
+          <h3 class="category-card-title">Свадебные наборы</h3>
+          <span class="category-card-btn">Смотреть всё</span>
+        </div>
+        <span class="category-count">8 наборов</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     BESTSELLERS CAROUSEL
+═══════════════════════════════════════ -->
+<section class="bestsellers-section" id="bestsellers">
+  <div class="container">
+    <p class="section-subtitle aos">Хиты продаж</p>
+    <h2 class="section-title aos aos-delay-1">Самые популярные</h2>
+    <div class="section-divider aos aos-delay-2"><span>✦</span></div>
+
+    <div class="products-carousel-wrapper">
+      <button class="carousel-arrow carousel-arrow--prev" aria-label="Назад">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="products-carousel" id="bestsellers-carousel">
+
+        <!-- Product 1 -->
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="images/category_necklaces.png" alt="Алтын моншақ" loading="lazy">
+            <div class="product-card-actions">
+              <button class="product-action-btn" data-action="wishlist" data-id="p1" data-name="Алтын Моншақ" aria-label="В избранное">
+                <svg class="heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <button class="product-action-btn" data-action="add-to-cart"
+                data-id="p1" data-name="Алтын Моншақ" data-price="85000"
+                data-img="images/category_necklaces.png" data-material="Золото 585 · Бирюза"
+                aria-label="В корзину">
+                <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              </button>
+            </div>
+            <span class="product-card-badge"><span class="badge badge--new">Хит</span></span>
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-category">Ожерелья</div>
+            <div class="product-card-name">Алтын Моншақ</div>
+            <div class="product-card-stars">
+              <span class="stars">★★★★★</span>
+              <span class="star-count">(48)</span>
+            </div>
+            <div class="product-card-price-row">
+              <span class="product-card-price">85 000 ₸</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="images/category_earrings.png" alt="Сақиналы Білезік" loading="lazy">
+            <div class="product-card-actions">
+              <button class="product-action-btn" data-action="wishlist" data-id="p2" data-name="Гауhар Сырға" aria-label="В избранное">
+                <svg class="heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <button class="product-action-btn" data-action="add-to-cart"
+                data-id="p2" data-name="Гауhар Сырға" data-price="42000"
+                data-img="images/category_earrings.png" data-material="Золото 585 · Бирюза"
+                aria-label="В корзину">
+                <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-category">Серьги</div>
+            <div class="product-card-name">Гауhар Сырға</div>
+            <div class="product-card-stars">
+              <span class="stars">★★★★★</span>
+              <span class="star-count">(32)</span>
+            </div>
+            <div class="product-card-price-row">
+              <span class="product-card-price">42 000 ₸</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="images/category_bracelets.png" alt="Қола Білезік" loading="lazy">
+            <div class="product-card-actions">
+              <button class="product-action-btn" data-action="wishlist" data-id="p3" data-name="Қола Білезік" aria-label="В избранное">
+                <svg class="heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <button class="product-action-btn" data-action="add-to-cart"
+                data-id="p3" data-name="Қола Білезік" data-price="56000"
+                data-img="images/category_bracelets.png" data-material="Золото 585 · Бирюза"
+                aria-label="В корзину">
+                <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              </button>
+            </div>
+            <span class="product-card-badge"><span class="badge badge--sale">−20%</span></span>
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-category">Браслеты</div>
+            <div class="product-card-name">Қола Білезік</div>
+            <div class="product-card-stars">
+              <span class="stars">★★★★☆</span>
+              <span class="star-count">(21)</span>
+            </div>
+            <div class="product-card-price-row">
+              <span class="product-card-price">56 000 ₸</span>
+              <span class="product-card-price-old">70 000 ₸</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="images/category_rings.png" alt="Жүзік" loading="lazy">
+            <div class="product-card-actions">
+              <button class="product-action-btn" data-action="wishlist" data-id="p4" data-name="Тас Жүзік" aria-label="В избранное">
+                <svg class="heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <button class="product-action-btn" data-action="add-to-cart"
+                data-id="p4" data-name="Тас Жүзік" data-price="38000"
+                data-img="images/category_rings.png" data-material="Золото 585 · Бирюза"
+                aria-label="В корзину">
+                <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-category">Кольца</div>
+            <div class="product-card-name">Тас Жүзік</div>
+            <div class="product-card-stars">
+              <span class="stars">★★★★★</span>
+              <span class="star-count">(57)</span>
+            </div>
+            <div class="product-card-price-row">
+              <span class="product-card-price">38 000 ₸</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="images/category_headpiece.png" alt="Шашбау" loading="lazy">
+            <div class="product-card-actions">
+              <button class="product-action-btn" data-action="wishlist" data-id="p5" data-name="Шашбау" aria-label="В избранное">
+                <svg class="heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <button class="product-action-btn" data-action="add-to-cart"
+                data-id="p5" data-name="Шашбау" data-price="125000"
+                data-img="images/category_headpiece.png" data-material="Золото 585 · Бирюза · Коралл"
+                aria-label="В корзину">
+                <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              </button>
+            </div>
+            <span class="product-card-badge"><span class="badge badge--new">Новинка</span></span>
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-category">Головные украшения</div>
+            <div class="product-card-name">Шашбау</div>
+            <div class="product-card-stars">
+              <span class="stars">★★★★★</span>
+              <span class="star-count">(14)</span>
+            </div>
+            <div class="product-card-price-row">
+              <span class="product-card-price">125 000 ₸</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="images/category_sets.png" alt="Свадебный набор" loading="lazy">
+            <div class="product-card-actions">
+              <button class="product-action-btn" data-action="wishlist" data-id="p6" data-name="Той Жиынтығы" aria-label="В избранное">
+                <svg class="heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <button class="product-action-btn" data-action="add-to-cart"
+                data-id="p6" data-name="Той Жиынтығы" data-price="280000"
+                data-img="images/category_sets.png" data-material="Золото 585 · Бирюза · Жемчуг"
+                aria-label="В корзину">
+                <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-category">Свадебные наборы</div>
+            <div class="product-card-name">Той Жиынтығы</div>
+            <div class="product-card-stars">
+              <span class="stars">★★★★★</span>
+              <span class="star-count">(8)</span>
+            </div>
+            <div class="product-card-price-row">
+              <span class="product-card-price">280 000 ₸</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <button class="carousel-arrow carousel-arrow--next" aria-label="Вперёд">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <div style="text-align:center; margin-top: 2.5rem;">
+      <a href="catalog.html" class="btn btn--outline">Смотреть все товары</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     PROMO BANNER
+═══════════════════════════════════════ -->
+<section class="promo-banner">
+  <div class="promo-banner-bg">
+    <img src="images/category_headpiece.png" alt="Новая коллекция">
+  </div>
+  <div class="container">
+    <div class="promo-banner-content aos">
+      <p class="promo-banner-tag">✦ Новая коллекция 2024</p>
+      <h2 class="promo-banner-title">
+        Свадебные<br><em>украшения</em><br>ручной работы
+      </h2>
+      <p class="promo-banner-desc">
+        Создайте незабываемый образ для вашего особого дня. Каждое изделие выполнено казахскими мастерами по традиционным технологиям.
+      </p>
+      <a href="catalog.html?cat=sets" class="btn btn--outline-white">Смотреть свадебную коллекцию</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ABOUT BRAND
+═══════════════════════════════════════ -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-img aos">
+        <img src="images/about_brand.png" alt="Казахские мастера-ювелиры">
+      </div>
+      <div class="about-content">
+        <p class="section-subtitle">О нас</p>
+        <h2 class="section-title">Наследие<br>в каждом изделии</h2>
+        <p class="about-text">
+          Altyn Biye — казахский бренд ювелирных украшений, основанных на традициях наших предков. Наши мастера создают каждое изделие вручную, используя технологии, передаваемые из поколения в поколение.
+        </p>
+        <p class="about-text">
+          Мы черпаем вдохновение в богатой культуре казахского народа — от орнаментов юрт до узоров национальной одежды. Каждое украшение — это история, которую вы носите с собой.
+        </p>
+        <div class="about-values">
+          <div class="about-value">
+            <div class="about-value-icon">🤲</div>
+            <div class="about-value-title">Ручная работа</div>
+            <div class="about-value-desc">Каждое изделие создаётся вручную</div>
+          </div>
+          <div class="about-value">
+            <div class="about-value-icon">⚜️</div>
+            <div class="about-value-title">Традиции</div>
+            <div class="about-value-desc">Казахская культура и орнаменты</div>
+          </div>
+          <div class="about-value">
+            <div class="about-value-icon">💎</div>
+            <div class="about-value-title">Качество</div>
+            <div class="about-value-desc">Золото 585 и натуральные камни</div>
+          </div>
+        </div>
+        <a href="about.html" class="btn btn--outline">Наша история</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     INSTAGRAM GRID
+═══════════════════════════════════════ -->
+<section class="instagram-section">
+  <div class="container">
+    <p class="section-subtitle aos">Следите за нами</p>
+    <h2 class="section-title aos aos-delay-1">@altynbiye_kz</h2>
+    <p class="instagram-handle aos aos-delay-2">Отмечайте нас в Instagram #AltynBiye</p>
+    <div class="instagram-grid aos">
+      <div class="instagram-item">
+        <img src="images/category_necklaces.png" alt="Instagram">
+        <div class="instagram-item-overlay">📷</div>
+      </div>
+      <div class="instagram-item">
+        <img src="images/category_earrings.png" alt="Instagram">
+        <div class="instagram-item-overlay">📷</div>
+      </div>
+      <div class="instagram-item">
+        <img src="images/category_bracelets.png" alt="Instagram">
+        <div class="instagram-item-overlay">📷</div>
+      </div>
+      <div class="instagram-item">
+        <img src="images/category_rings.png" alt="Instagram">
+        <div class="instagram-item-overlay">📷</div>
+      </div>
+      <div class="instagram-item">
+        <img src="images/category_headpiece.png" alt="Instagram">
+        <div class="instagram-item-overlay">📷</div>
+      </div>
+      <div class="instagram-item">
+        <img src="images/category_sets.png" alt="Instagram">
+        <div class="instagram-item-overlay">📷</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     NEWSLETTER
+═══════════════════════════════════════ -->
+<section class="newsletter-section">
+  <div class="container--narrow">
+    <p class="section-subtitle">Каждую неделю</p>
+    <h2 class="section-title">Подписка на новости</h2>
+    <form class="newsletter-form" id="newsletter-form">
+      <input type="email" placeholder="Ваш email адрес" required>
+      <button type="submit" class="btn btn--gold">Подписаться</button>
+    </form>
+    <p class="newsletter-note">Мы не рассылаем спам. Только новинки и специальные предложения.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">Altyn Biye</a>
+        <p class="footer-tagline">Қазақ Зергерлігі</p>
+        <p>Ювелирные украшения в казахском этно стиле. Ручная работа, натуральные камни, золото 585 пробы. Доставка по всему Казахстану.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://tiktok.com" aria-label="TikTok">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.28 8.28 0 004.84 1.54V6.79a4.83 4.83 0 01-1.07-.1z"/></svg>
+          </a>
+          <a href="https://wa.me/77001234567" aria-label="WhatsApp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.994 0C5.372 0 0 5.373 0 11.994c0 2.121.555 4.107 1.527 5.842L0 24l6.335-1.502A11.945 11.945 0 0011.994 24C18.616 24 24 18.626 24 12.006 24 5.373 18.616 0 11.994 0zm0 21.818a9.817 9.817 0 01-5.004-1.369l-.359-.214-3.757.89.942-3.652-.235-.374A9.817 9.817 0 012.174 12c0-5.42 4.4-9.822 9.82-9.822 5.42 0 9.821 4.402 9.821 9.822 0 5.419-4.401 9.818-9.821 9.818z"/></svg>
+          </a>
+          <a href="https://kaspi.kz" aria-label="Kaspi.kz">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+          </a>
+        </div>
+        <div class="footer-payments">
+          <span class="payment-icon">Kaspi</span>
+          <span class="payment-icon">Visa</span>
+          <span class="payment-icon">MC</span>
+          <span class="payment-icon">Cash</span>
+        </div>
+      </div>
+
+      <!-- Каталог -->
+      <div class="footer-col">
+        <h4>Каталог</h4>
+        <ul>
+          <li><a href="catalog.html?cat=necklaces">Ожерелья</a></li>
+          <li><a href="catalog.html?cat=earrings">Серьги</a></li>
+          <li><a href="catalog.html?cat=bracelets">Браслеты</a></li>
+          <li><a href="catalog.html?cat=rings">Кольца</a></li>
+          <li><a href="catalog.html?cat=headpieces">Головные украшения</a></li>
+          <li><a href="catalog.html?cat=sets">Свадебные наборы</a></li>
+          <li><a href="catalog.html?filter=sale" style="color:#C0392B">🔥 Распродажа</a></li>
+        </ul>
+      </div>
+
+      <!-- Информация -->
+      <div class="footer-col">
+        <h4>Информация</h4>
+        <ul>
+          <li><a href="about.html">О бренде</a></li>
+          <li><a href="#">Доставка и оплата</a></li>
+          <li><a href="#">Возврат и обмен</a></li>
+          <li><a href="#">Уход за украшениями</a></li>
+          <li><a href="#">Сертификаты</a></li>
+          <li><a href="contact.html">Контакты</a></li>
+        </ul>
+      </div>
+
+      <!-- Контакты -->
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>г. Алматы, Казахстан</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.81 19.79 19.79 0 01.42 2.18 2 2 0 012.41 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l.79-.79a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          <span>+7 700 123 45 67</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>info@altynbiye.kz</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Пн–Сб: 10:00–20:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="footer-ornament">
+        <span>✦</span>
+      </div>
+      <div class="footer-bottom-links">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Публичная оферта</a>
+        <a href="#">Карта сайта</a>
+      </div>
+      <p>© 2024 Altyn Biye. Все права защищены. Казахстан.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Button -->
+<a href="https://wa.me/77001234567" class="whatsapp-btn" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.994 0C5.372 0 0 5.373 0 11.994c0 2.121.555 4.107 1.527 5.842L0 24l6.335-1.502A11.945 11.945 0 0011.994 24C18.616 24 24 18.626 24 12.006 24 5.373 18.616 0 11.994 0zm0 21.818a9.817 9.817 0 01-5.004-1.369l-.359-.214-3.757.89.942-3.652-.235-.374A9.817 9.817 0 012.174 12c0-5.42 4.4-9.822 9.82-9.822 5.42 0 9.821 4.402 9.821 9.822 0 5.419-4.401 9.818-9.821 9.818z"/></svg>
+</a>
+
+<!-- Scroll to Top -->
+<button class="scroll-top" aria-label="Наверх">↑</button>
+
+<!-- JS -->
+<script src="js/main.js"></script>
+</body>
+</html>

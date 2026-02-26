@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Контакты Altyn Biye — казахские ювелирные украшения. Напишите нам в WhatsApp или оставьте заявку.">
+  <title>Контакты — Altyn Biye</title>
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/header.css">
+  <link rel="stylesheet" href="styles/footer.css">
+  <link rel="stylesheet" href="styles/responsive.css">
+  <style>
+    .contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);padding:var(--space-2xl) 0;align-items:start}
+    .contact-info h2{font-family:var(--font-serif);font-size:2rem;margin-bottom:1rem;color:var(--color-gold-dark)}
+    .contact-info p{color:var(--color-text-muted);line-height:1.8;margin-bottom:var(--space-md)}
+    .contact-detail{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.5rem;padding:1.2rem;background:var(--color-cream);border-radius:var(--radius-md);border-left:3px solid var(--color-gold)}
+    .contact-detail-icon{width:42px;height:42px;background:var(--color-gold);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .contact-detail-icon svg{width:20px;height:20px;stroke:white;fill:none;stroke-width:1.5}
+    .contact-detail-title{font-weight:600;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:.3rem}
+    .contact-detail-value{font-family:var(--font-serif);font-size:1.1rem;color:var(--color-text)}
+    .contact-detail-value a{color:var(--color-gold-dark)}
+    .contact-detail-value a:hover{color:var(--color-gold)}
+    .whatsapp-cta{background:linear-gradient(135deg,#25D366,#1DA851);border-radius:var(--radius-md);padding:1.5rem;color:white;text-align:center;margin-bottom:var(--space-md)}
+    .whatsapp-cta h3{font-family:var(--font-serif);font-size:1.4rem;margin-bottom:.5rem}
+    .whatsapp-cta p{opacity:.85;font-size:.85rem;margin-bottom:1rem}
+    .whatsapp-cta .btn{background:white;color:#25D366;border-color:white}
+    .whatsapp-cta .btn:hover{background:rgba(255,255,255,.9)}
+    .contact-form-wrap{background:var(--color-white);padding:var(--space-lg);border-radius:var(--radius-md);border:1px solid var(--color-border);box-shadow:var(--shadow-card)}
+    .contact-form-wrap h3{font-family:var(--font-serif);font-size:1.6rem;margin-bottom:1.5rem;color:var(--color-gold-dark)}
+    .form-group{margin-bottom:1.2rem}
+    .form-group label{display:block;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:.5rem}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:.8rem 1rem;border:1px solid var(--color-border);background:var(--color-ivory);font-size:.9rem;color:var(--color-text);border-radius:var(--radius-sm);transition:border-color var(--trans-fast);font-family:var(--font-sans)}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--color-gold);background:var(--color-white)}
+    .form-group textarea{resize:vertical;min-height:120px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:900px){.contact-layout{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="announcement-bar">🎁 Бесплатная доставка при заказе от 25 000 ₸ <a href="catalog.html">Каталог →</a></div>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-logo"><a href="index.html"><span class="logo-text">Altyn Biye</span><span class="logo-sub">Қазақ Зергерлігі</span></a></div>
+    <nav class="header-nav"><ul>
+      <li><a href="index.html#bestsellers">Хиты продаж</a></li>
+      <li><a href="catalog.html?filter=new">Новинки</a></li>
+      <li><a href="catalog.html">Каталог</a></li>
+      <li><a href="about.html">О бренде</a></li>
+      <li><a href="catalog.html?filter=sale" class="nav-sale">Распродажа</a></li>
+      <li><a href="contact.html" class="active">Контакты</a></li>
+    </ul></nav>
+    <div class="header-icons">
+      <button class="header-icon-btn search-toggle-btn" aria-label="Поиск"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="header-icon-btn cart-open-btn" aria-label="Корзина"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="cart-count" style="display:none">0</span></button>
+      <button class="burger-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="search-dropdown"><form class="search-form" action="catalog.html" method="get"><input type="text" name="q" placeholder="Поиск украшений..."><button type="submit" aria-label="Найти"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button></form></div>
+<nav class="mobile-menu"><div class="mobile-menu-header"><span class="logo-text">Altyn Biye</span><button class="mobile-menu-close">✕</button></div><div class="mobile-menu-nav"><a href="index.html#bestsellers">Хиты продаж</a><a href="catalog.html">Каталог</a><a href="about.html">О бренде</a><a href="contact.html">Контакты</a><a href="catalog.html?filter=sale" class="nav-sale">🔥 Распродажа</a></div><div class="mobile-menu-footer"><div class="social-links"><a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></a></div></div></nav>
+<div class="overlay"></div>
+<aside class="cart-sidebar"><div class="cart-sidebar-header"><h3>Ваша Корзина</h3><button class="cart-sidebar-close">✕</button></div><div class="cart-sidebar-body"></div><div class="cart-sidebar-footer" style="display:none"><div class="cart-subtotal"><span class="cart-subtotal-label">Итого</span><span class="cart-subtotal-amount">0 ₸</span></div><button class="btn btn--primary btn--full">Оформить заказ</button><a href="https://kaspi.kz" target="_blank" class="cart-kaspi">🛒 Купить на Kaspi.kz</a></div></aside>
+
+<div class="page-header"><div class="container"><div class="breadcrumb"><a href="index.html">Главная</a><span>›</span><span>Контакты</span></div><h1>Свяжитесь с нами</h1></div></div>
+
+<section style="background:var(--color-ivory)">
+  <div class="container">
+    <div class="contact-layout">
+      <div>
+        <div class="contact-info">
+          <h2>Мы рады вам помочь</h2>
+          <p>Есть вопросы о наших украшениях, хотите сделать индивидуальный заказ или просто хотите узнать больше? Напишите нам!</p>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.81 19.79 19.79 0 01.42 2.18 2 2 0 012.41 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l.79-.79a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <div><div class="contact-detail-title">Телефон</div><div class="contact-detail-value"><a href="tel:+77001234567">+7 700 123 45 67</a></div></div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="contact-detail-title">Email</div><div class="contact-detail-value"><a href="mailto:info@altynbiye.kz">info@altynbiye.kz</a></div></div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="contact-detail-title">Адрес</div><div class="contact-detail-value">г. Алматы, пр. Достык 20, офис 14</div></div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div><div class="contact-detail-title">Режим работы</div><div class="contact-detail-value">Пн–Сб: 10:00–20:00<br>Вс: 11:00–18:00</div></div>
+        </div>
+        <div class="whatsapp-cta">
+          <h3>💬 Напишите нам в WhatsApp</h3>
+          <p>Быстрый ответ в течение 30 минут. Вопросы о размерах, материалах, индивидуальных заказах.</p>
+          <a href="https://wa.me/77001234567?text=Здравствуйте!%20Хочу%20узнать%20о%20ваших%20украшениях" target="_blank" class="btn">Написать в WhatsApp</a>
+        </div>
+        <div style="margin-top:1rem">
+          <h4 style="font-family:var(--font-serif);font-size:1.1rem;margin-bottom:.75rem">Мы в Instagram</h4>
+          <a href="https://instagram.com" target="_blank" style="display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--color-gold-dark)">📸 @altynbiye_kz</a>
+        </div>
+      </div>
+      <div class="contact-form-wrap">
+        <h3>Оставить заявку</h3>
+        <form id="contact-form">
+          <div class="form-row">
+            <div class="form-group"><label>Ваше имя</label><input type="text" placeholder="Айгуль" required></div>
+            <div class="form-group"><label>Телефон</label><input type="tel" placeholder="+7 700 000 00 00" required></div>
+          </div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.kz"></div>
+          <div class="form-group"><label>Тема</label>
+            <select>
+              <option>Вопрос о товаре</option>
+              <option>Индивидуальный заказ</option>
+              <option>Доставка и оплата</option>
+              <option>Возврат и обмен</option>
+              <option>Другое</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Сообщение</label><textarea placeholder="Расскажите о вашем запросе..."></textarea></div>
+          <button type="submit" class="btn btn--primary btn--full">Отправить заявку</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand"><a href="index.html" class="footer-logo">Altyn Biye</a><p class="footer-tagline">Қазақ Зергерлігі</p><p>Ювелирные украшения в казахском этно стиле. Ручная работа, натуральные камни.</p><div class="footer-payments"><span class="payment-icon">Kaspi</span><span class="payment-icon">Visa</span><span class="payment-icon">MC</span></div></div>
+      <div class="footer-col"><h4>Каталог</h4><ul><li><a href="catalog.html?cat=necklaces">Ожерелья</a></li><li><a href="catalog.html?cat=earrings">Серьги</a></li><li><a href="catalog.html?cat=bracelets">Браслеты</a></li><li><a href="catalog.html?cat=rings">Кольца</a></li><li><a href="catalog.html?cat=sets">Наборы</a></li></ul></div>
+      <div class="footer-col"><h4>Информация</h4><ul><li><a href="about.html">О бренде</a></li><li><a href="#">Доставка</a></li><li><a href="contact.html">Контакты</a></li></ul></div>
+      <div class="footer-col"><h4>Контакты</h4><div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.81 19.79 19.79 0 01.42 2.18 2 2 0 012.41 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l.79-.79a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg><span>+7 700 123 45 67</span></div></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div class="container"><div class="footer-ornament"><span>✦</span></div><p>© 2024 Altyn Biye. Все права защищены.</p></div></div>
+</footer>
+<a href="https://wa.me/77001234567" class="whatsapp-btn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.994 0C5.372 0 0 5.373 0 11.994c0 2.121.555 4.107 1.527 5.842L0 24l6.335-1.502A11.945 11.945 0 0011.994 24C18.616 24 24 18.626 24 12.006 24 5.373 18.616 0 11.994 0zm0 21.818a9.817 9.817 0 01-5.004-1.369l-.359-.214-3.757.89.942-3.652-.235-.374A9.817 9.817 0 012.174 12c0-5.42 4.4-9.822 9.82-9.822 5.42 0 9.821 4.402 9.821 9.822 0 5.419-4.401 9.818-9.821 9.818z"/></svg></a>
+<button class="scroll-top">↑</button>
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('contact-form')?.addEventListener('submit',function(e){
+    e.preventDefault();
+    const toast=document.createElement('div');
+    toast.className='toast show';
+    toast.innerHTML='<span>✓</span> Ваша заявка отправлена! Мы свяжемся с вами в ближайшее время.';
+    document.body.appendChild(toast);
+    setTimeout(()=>toast.remove(),4000);
+    this.reset();
+  });
+</script>
+</body>
+</html>

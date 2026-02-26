@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Каталог казахских ювелирных украшений Altyn Biye. Ожерелья, серьги, браслеты, кольца. Фильтры по категории, цене и материалу.">
+    <title>Каталог — Altyn Biye</title>
+
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/products.css">
+    <link rel="stylesheet" href="styles/catalog.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+</head>
+
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        🎁 Бесплатная доставка при заказе от 25 000 ₸
+        <a href="#">Подробнее →</a>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header" id="site-header">
+        <div class="header-inner">
+            <div class="header-logo">
+                <a href="index.html">
+                    <span class="logo-text">Altyn Biye</span>
+                    <span class="logo-sub">Қазақ Зергерлігі</span>
+                </a>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="index.html#bestsellers">Хиты продаж</a></li>
+                    <li><a href="catalog.html?filter=new">Новинки</a></li>
+                    <li><a href="catalog.html" class="active">Каталог</a></li>
+                    <li><a href="about.html">О бренде</a></li>
+                    <li><a href="catalog.html?filter=sale" class="nav-sale">Распродажа</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <button class="header-icon-btn search-toggle-btn" aria-label="Поиск">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                </button>
+                <button class="header-icon-btn cart-open-btn" aria-label="Корзина">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 01-8 0" />
+                    </svg>
+                    <span class="cart-count" style="display:none">0</span>
+                </button>
+                <button class="burger-btn" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search -->
+    <div class="search-dropdown">
+        <form class="search-form" action="catalog.html" method="get">
+            <input type="text" name="q" placeholder="Поиск украшений...">
+            <button type="submit" aria-label="Найти"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.5">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg></button>
+        </form>
+    </div>
+
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu">
+        <div class="mobile-menu-header">
+            <span class="logo-text">Altyn Biye</span>
+            <button class="mobile-menu-close">✕</button>
+        </div>
+        <div class="mobile-menu-nav">
+            <a href="index.html#bestsellers">Хиты продаж</a>
+            <a href="catalog.html?filter=new">Новинки</a>
+            <a href="catalog.html">Каталог</a>
+            <a href="about.html">О бренде</a>
+            <a href="contact.html">Контакты</a>
+            <a href="catalog.html?filter=sale" class="nav-sale">🔥 Распродажа</a>
+        </div>
+        <div class="mobile-menu-footer">
+            <div class="social-links">
+                <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg></a>
+                <a href="https://wa.me/77001234567" aria-label="WhatsApp"><svg width="16" height="16"
+                        viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                        <path
+                            d="M11.994 0C5.372 0 0 5.373 0 11.994c0 2.121.555 4.107 1.527 5.842L0 24l6.335-1.502A11.945 11.945 0 0011.994 24C18.616 24 24 18.626 24 12.006 24 5.373 18.616 0 11.994 0zm0 21.818a9.817 9.817 0 01-5.004-1.369l-.359-.214-3.757.89.942-3.652-.235-.374A9.817 9.817 0 012.174 12c0-5.42 4.4-9.822 9.82-9.822 5.42 0 9.821 4.402 9.821 9.822 0 5.419-4.401 9.818-9.821 9.818z" />
+                    </svg></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="overlay"></div>
+
+    <!-- Cart Sidebar -->
+    <aside class="cart-sidebar">
+        <div class="cart-sidebar-header">
+            <h3>Ваша Корзина</h3>
+            <button class="cart-sidebar-close">✕</button>
+        </div>
+        <div class="cart-sidebar-body"></div>
+        <div class="cart-sidebar-footer" style="display:none">
+            <div class="cart-subtotal">
+                <span class="cart-subtotal-label">Итого</span>
+                <span class="cart-subtotal-amount">0 ₸</span>
+            </div>
+            <button class="btn btn--primary btn--full">Оформить заказ</button>
+            <a href="https://kaspi.kz" target="_blank" class="cart-kaspi">🛒 Купить на Kaspi.kz</a>
+        </div>
+    </aside>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Главная</a>
+                <span>›</span>
+                <span>Каталог</span>
+            </div>
+            <h1>Каталог украшений</h1>
+        </div>
+    </div>
+
+    <!-- Catalog -->
+    <section style="background: var(--color-ivory);">
+        <div class="container">
+            <div class="catalog-layout">
+
+                <!-- Sidebar Filters -->
+                <aside class="filters-sidebar" id="filters-sidebar">
+                    <div class="filters-header">
+                        <h3>Фильтры</h3>
+                        <span class="filters-clear" id="filters-clear">Сбросить</span>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="filter-group">
+                        <div class="filter-group-title">
+                            Категория <span class="toggle-icon">▾</span>
+                        </div>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" value="necklaces" name="cat">
+                                <span class="filter-option-label">Ожерелья</span>
+                                <span class="filter-option-count">24</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="earrings" name="cat">
+                                <span class="filter-option-label">Серьги</span>
+                                <span class="filter-option-count">36</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="bracelets" name="cat">
+                                <span class="filter-option-label">Браслеты</span>
+                                <span class="filter-option-count">18</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="rings" name="cat">
+                                <span class="filter-option-label">Кольца</span>
+                                <span class="filter-option-count">30</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="headpieces" name="cat">
+                                <span class="filter-option-label">Головные украшения</span>
+                                <span class="filter-option-count">12</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="sets" name="cat">
+                                <span class="filter-option-label">Свадебные наборы</span>
+                                <span class="filter-option-count">8</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="filter-group">
+                        <div class="filter-group-title">
+                            Цена (₸) <span class="toggle-icon">▾</span>
+                        </div>
+                        <div class="price-range">
+                            <div class="price-input-wrap">
+                                <label>От</label>
+                                <input type="number" id="price-min" placeholder="0" min="0">
+                            </div>
+                            <span class="price-range-sep">—</span>
+                            <div class="price-input-wrap">
+                                <label>До</label>
+                                <input type="number" id="price-max" placeholder="500 000" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metal -->
+                    <div class="filter-group">
+                        <div class="filter-group-title">
+                            Металл <span class="toggle-icon">▾</span>
+                        </div>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" value="gold585" name="metal">
+                                <span class="filter-option-label">Золото 585</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="gold750" name="metal">
+                                <span class="filter-option-label">Золото 750</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="silver" name="metal">
+                                <span class="filter-option-label">Серебро</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Stone -->
+                    <div class="filter-group">
+                        <div class="filter-group-title">
+                            Камень <span class="toggle-icon">▾</span>
+                        </div>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" value="turquoise" name="stone">
+                                <span class="filter-option-label">Бирюза</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="pearl" name="stone">
+                                <span class="filter-option-label">Жемчуг</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="coral" name="stone">
+                                <span class="filter-option-label">Коралл</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="garnet" name="stone">
+                                <span class="filter-option-label">Гранат</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn btn--primary btn--full" id="apply-filters">Применить фильтры</button>
+                </aside>
+
+                <!-- Main Content -->
+                <main class="catalog-main">
+                    <div class="catalog-toolbar">
+                        <div style="display:flex; align-items:center; gap:1rem;">
+                            <button class="filter-mobile-btn" id="filter-mobile-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5">
+                                    <line x1="4" y1="6" x2="20" y2="6" />
+                                    <line x1="8" y1="12" x2="16" y2="12" />
+                                    <line x1="11" y1="18" x2="13" y2="18" />
+                                </svg>
+                                Фильтры
+                            </button>
+                            <div class="catalog-count">Показано <span id="shown-count">12</span> из <span>128</span>
+                                товаров</div>
+                        </div>
+                        <select class="sort-select" id="sort-select">
+                            <option value="popular">По популярности</option>
+                            <option value="new">Новинки</option>
+                            <option value="price-asc">Цена: по возрастанию</option>
+                            <option value="price-desc">Цена: по убыванию</option>
+                            <option value="rating">По рейтингу</option>
+                        </select>
+                    </div>
+
+                    <!-- Active filter tags -->
+                    <div class="active-filters" id="active-filters"></div>
+
+                    <!-- Products Grid (rendered by catalog.js) -->
+                    <div class="products-grid" id="catalog-grid"></div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="pagination">
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <span style="padding:0 0.5rem; color:var(--color-text-muted)">…</span>
+                        <button class="page-btn">11</button>
+                        <button class="page-btn" style="width:auto; padding:0 1rem;">›</button>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">Altyn Biye</a>
+                    <p class="footer-tagline">Қазақ Зергерлігі</p>
+                    <p>Ювелирные украшения в казахском этно стиле. Ручная работа, натуральные камни, золото 585 пробы.
+                    </p>
+                    <div class="footer-payments">
+                        <span class="payment-icon">Kaspi</span>
+                        <span class="payment-icon">Visa</span>
+                        <span class="payment-icon">MC</span>
+                        <span class="payment-icon">Cash</span>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Каталог</h4>
+                    <ul>
+                        <li><a href="catalog.html?cat=necklaces">Ожерелья</a></li>
+                        <li><a href="catalog.html?cat=earrings">Серьги</a></li>
+                        <li><a href="catalog.html?cat=bracelets">Браслеты</a></li>
+                        <li><a href="catalog.html?cat=rings">Кольца</a></li>
+                        <li><a href="catalog.html?cat=headpieces">Головные украшения</a></li>
+                        <li><a href="catalog.html?cat=sets">Свадебные наборы</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="about.html">О бренде</a></li>
+                        <li><a href="#">Доставка и оплата</a></li>
+                        <li><a href="#">Возврат и обмен</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <div class="footer-contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.81 19.79 19.79 0 01.42 2.18 2 2 0 012.41 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l.79-.79a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+                        </svg>
+                        <span>+7 700 123 45 67</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                        <span>info@altynbiye.kz</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-ornament"><span>✦</span></div>
+                <p>© 2024 Altyn Biye. Все права защищены. Казахстан.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/77001234567" class="whatsapp-btn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+            <path
+                d="M11.994 0C5.372 0 0 5.373 0 11.994c0 2.121.555 4.107 1.527 5.842L0 24l6.335-1.502A11.945 11.945 0 0011.994 24C18.616 24 24 18.626 24 12.006 24 5.373 18.616 0 11.994 0zm0 21.818a9.817 9.817 0 01-5.004-1.369l-.359-.214-3.757.89.942-3.652-.235-.374A9.817 9.817 0 012.174 12c0-5.42 4.4-9.822 9.82-9.822 5.42 0 9.821 4.402 9.821 9.822 0 5.419-4.401 9.818-9.821 9.818z" />
+        </svg>
+    </a>
+    <button class="scroll-top">↑</button>
+
+    <script src="js/main.js"></script>
+    <script src="js/catalog.js"></script>
+</body>
+
+</html>

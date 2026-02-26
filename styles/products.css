@@ -1,0 +1,508 @@
+/* ============================================
+   PRODUCTS — Cards, Carousel, Grid
+   ============================================ */
+
+/* --- Bestsellers Section --- */
+.bestsellers-section {
+    padding: var(--space-2xl) 0;
+    background: var(--color-ivory);
+    overflow: hidden;
+}
+
+/* --- Products Grid Section --- */
+.products-section {
+    padding: var(--space-2xl) 0;
+    background: var(--color-white);
+}
+
+/* --- Horizontal Carousel --- */
+.products-carousel-wrapper {
+    position: relative;
+    margin-top: var(--space-lg);
+}
+
+.products-carousel {
+    display: flex;
+    gap: 1.2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.5rem 0 1.5rem;
+    scrollbar-width: none;
+}
+
+.products-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.products-carousel .product-card {
+    flex: 0 0 260px;
+    scroll-snap-align: start;
+}
+
+/* Carousel arrows */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--trans-fast);
+    color: var(--color-text);
+}
+
+.carousel-arrow:hover {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-white);
+}
+
+.carousel-arrow svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.carousel-arrow--prev {
+    left: -22px;
+}
+
+.carousel-arrow--next {
+    right: -22px;
+}
+
+/* --- Product Grid (catalog) --- */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: var(--space-lg);
+}
+
+/* --- Product Card --- */
+.product-card {
+    background: var(--color-white);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+    transition: all var(--trans-normal);
+    border: 1px solid var(--color-border);
+}
+
+.product-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+    border-color: var(--color-cream-dark);
+}
+
+.product-card-img-wrap {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-cream);
+    aspect-ratio: 1 / 1;
+}
+
+.product-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--trans-slow);
+}
+
+.product-card:hover .product-card-img-wrap img {
+    transform: scale(1.06);
+}
+
+/* Card overlay actions */
+.product-card-actions {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 26, 26, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    opacity: 0;
+    transition: opacity var(--trans-normal);
+}
+
+.product-card:hover .product-card-actions {
+    opacity: 1;
+}
+
+.product-action-btn {
+    width: 42px;
+    height: 42px;
+    background: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    color: var(--color-text);
+    transition: all var(--trans-fast);
+    transform: translateY(8px);
+}
+
+.product-card:hover .product-action-btn {
+    transform: translateY(0);
+}
+
+.product-action-btn:nth-child(2) {
+    transition-delay: 0.05s;
+}
+
+.product-action-btn:nth-child(3) {
+    transition-delay: 0.1s;
+}
+
+.product-action-btn:hover {
+    background: var(--color-gold);
+    color: var(--color-white);
+}
+
+.product-action-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.product-action-btn.wishlisted svg.heart {
+    fill: var(--color-sale);
+    stroke: var(--color-sale);
+}
+
+/* Card badge */
+.product-card-badge {
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+    z-index: 1;
+}
+
+/* Card body */
+.product-card-body {
+    padding: 1rem 1rem 1.2rem;
+}
+
+.product-card-category {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 0.3rem;
+}
+
+.product-card-name {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-text);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color var(--trans-fast);
+}
+
+.product-card:hover .product-card-name {
+    color: var(--color-gold-dark);
+}
+
+.product-card-stars {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-bottom: 0.6rem;
+}
+
+.product-card-stars .star-count {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+}
+
+.product-card-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.product-card-price {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-gold-dark);
+}
+
+.product-card-price-old {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    text-decoration: line-through;
+}
+
+/* Add to cart button (below card) — slide up on hover */
+.product-card-footer {
+    padding: 0 1rem 1rem;
+    display: none;
+}
+
+.product-card:hover .product-card-footer {
+    display: block;
+}
+
+/* --- Promo Banner --- */
+.promo-banner {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--color-text);
+}
+
+.promo-banner-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+}
+
+.promo-banner-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.promo-banner-content {
+    position: relative;
+    z-index: 1;
+    padding: var(--space-2xl) var(--space-lg);
+    max-width: 600px;
+}
+
+.promo-banner-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-gold-light);
+    margin-bottom: 1rem;
+}
+
+.promo-banner-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    color: var(--color-white);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+}
+
+.promo-banner-title em {
+    font-style: italic;
+    color: var(--color-gold-light);
+}
+
+.promo-banner-desc {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    max-width: 440px;
+}
+
+/* --- About Brand Section --- */
+.about-section {
+    padding: var(--space-2xl) 0;
+    background: var(--color-cream);
+}
+
+.about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+}
+
+.about-img {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    aspect-ratio: 4/5;
+}
+
+.about-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--trans-slow);
+}
+
+.about-img:hover img {
+    transform: scale(1.03);
+}
+
+.about-content {
+    max-width: 480px;
+}
+
+.about-content .section-subtitle {
+    text-align: left;
+    margin-bottom: var(--space-xs);
+}
+
+.about-content .section-title {
+    text-align: left;
+    margin-bottom: var(--space-sm);
+}
+
+.about-text {
+    color: var(--color-text-muted);
+    line-height: 1.9;
+    margin-bottom: var(--space-md);
+}
+
+.about-values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: var(--space-md);
+}
+
+.about-value {
+    text-align: center;
+}
+
+.about-value-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.about-value-title {
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+}
+
+.about-value-desc {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+
+/* --- Instagram Section --- */
+.instagram-section {
+    padding: var(--space-2xl) 0;
+    background: var(--color-white);
+    text-align: center;
+}
+
+.instagram-handle {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: var(--color-gold-dark);
+    margin-bottom: var(--space-lg);
+    font-style: italic;
+}
+
+.instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+}
+
+.instagram-item {
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.instagram-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--trans-normal);
+}
+
+.instagram-item:hover img {
+    transform: scale(1.08);
+}
+
+.instagram-item-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(184, 134, 11, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--trans-normal);
+    color: white;
+    font-size: 1.5rem;
+}
+
+.instagram-item:hover .instagram-item-overlay {
+    opacity: 1;
+}
+
+/* --- Newsletter Section --- */
+.newsletter-section {
+    padding: var(--space-xl) 0;
+    background: var(--color-text);
+    text-align: center;
+}
+
+.newsletter-section .section-subtitle {
+    color: var(--color-gold-light);
+}
+
+.newsletter-section .section-title {
+    color: var(--color-white);
+    margin-bottom: var(--space-md);
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 0;
+    max-width: 480px;
+    margin: 0 auto var(--space-md);
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 0.9rem 1.2rem;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: none;
+    color: var(--color-white);
+}
+
+.newsletter-form input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.newsletter-form .btn {
+    border-left: none;
+    flex-shrink: 0;
+}
+
+.newsletter-note {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.05em;
+}

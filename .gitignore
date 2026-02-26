@@ -1,0 +1,19 @@
+# Node
+server/node_modules/
+node_modules/
+npm-debug.log*
+
+# Database (содержит реальные данные — не пушим)
+store.db
+
+# Uploaded files
+uploads/*
+!uploads/.gitkeep
+
+# macOS
+.DS_Store
+*.DS_Store
+
+# Logs
+*.log
+/tmp/
