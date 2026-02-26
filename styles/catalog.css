@@ -189,7 +189,8 @@
 }
 
 /* --- Catalog Main --- */
-.catalog-main {}
+/* .catalog-main inherits from flex layout above */
+
 
 .catalog-toolbar {
     display: flex;
@@ -253,14 +254,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     margin-top: var(--space-xl);
+    flex-wrap: wrap;
 }
 
 .page-btn {
-    width: 40px;
+    min-width: 40px;
     height: 40px;
-    display: flex;
+    padding: 0 0.75rem;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     border: 1px solid var(--color-border);
@@ -269,14 +272,41 @@
     transition: all var(--trans-fast);
     border-radius: var(--radius-sm);
     background: var(--color-white);
+    font-family: var(--font-sans);
+    white-space: nowrap;
 }
 
-.page-btn:hover,
+.page-btn.page-nav {
+    min-width: 80px;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+}
+
+.page-btn:hover:not(:disabled) {
+    background: var(--color-gold);
+    color: var(--color-white);
+    border-color: var(--color-gold);
+}
+
 .page-btn.active {
     background: var(--color-text);
     color: var(--color-white);
     border-color: var(--color-text);
+    font-weight: 600;
 }
+
+.page-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.page-ellipsis {
+    width: 32px;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
 
 /* Catalog responsive */
 @media (max-width: 900px) {

@@ -35,15 +35,16 @@
             </div>
             <nav class="header-nav">
                 <ul>
-                    <li><a href="index.html#bestsellers">Хиты продаж</a></li>
-                    <li><a href="catalog.html?filter=new">Новинки</a></li>
-                    <li><a href="catalog.html" class="active">Каталог</a></li>
-                    <li><a href="about.html">О бренде</a></li>
-                    <li><a href="catalog.html?filter=sale" class="nav-sale">Распродажа</a></li>
-                    <li><a href="contact.html">Контакты</a></li>
+                    <li><a href="index.html#bestsellers" data-i18n="section.bestsellers">Хиты продаж</a></li>
+                    <li><a href="catalog.html?filter=new" data-i18n="nav.new">Новинки</a></li>
+                    <li><a href="catalog.html" class="active" data-i18n="nav.catalog">Каталог</a></li>
+                    <li><a href="about.html" data-i18n="nav.about">О бренде</a></li>
+                    <li><a href="catalog.html?filter=sale" class="nav-sale" data-i18n="nav.sale">Распродажа</a></li>
+                    <li><a href="contact.html" data-i18n="nav.contact">Контакты</a></li>
                 </ul>
             </nav>
             <div class="header-icons">
+                <div class="lang-switcher"></div>
                 <button class="header-icon-btn search-toggle-btn" aria-label="Поиск">
                     <svg viewBox="0 0 24 24">
                         <circle cx="11" cy="11" r="8" />
@@ -268,10 +269,11 @@
                                     <line x1="8" y1="12" x2="16" y2="12" />
                                     <line x1="11" y1="18" x2="13" y2="18" />
                                 </svg>
-                                Фильтры
+                                <span data-i18n="catalog.filters">Фильтры</span>
                             </button>
-                            <div class="catalog-count">Показано <span id="shown-count">12</span> из <span>128</span>
-                                товаров</div>
+                            <div class="catalog-count"><span data-i18n="catalog.shown">Показано</span> <span
+                                    id="shown-count">—</span> <span data-i18n="catalog.of">из</span> <span
+                                    id="total-count">—</span></div>
                         </div>
                         <select class="sort-select" id="sort-select">
                             <option value="popular">По популярности</option>
@@ -288,15 +290,8 @@
                     <!-- Products Grid (rendered by catalog.js) -->
                     <div class="products-grid" id="catalog-grid"></div>
 
-                    <!-- Pagination -->
-                    <div class="pagination" id="pagination">
-                        <button class="page-btn active">1</button>
-                        <button class="page-btn">2</button>
-                        <button class="page-btn">3</button>
-                        <span style="padding:0 0.5rem; color:var(--color-text-muted)">…</span>
-                        <button class="page-btn">11</button>
-                        <button class="page-btn" style="width:auto; padding:0 1rem;">›</button>
-                    </div>
+                    <!-- Pagination (rendered by catalog.js) -->
+                    <div class="pagination" id="pagination"></div>
                 </main>
             </div>
         </div>
@@ -375,6 +370,7 @@
     </a>
     <button class="scroll-top">↑</button>
 
+    <script src="js/i18n.js"></script>
     <script src="js/main.js"></script>
     <script src="js/catalog.js"></script>
 </body>

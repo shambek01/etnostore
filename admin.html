@@ -1,558 +1,1306 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel — Altyn Biye</title>
   <link rel="stylesheet" href="styles/base.css">
   <style>
-    :root {--sidebar-w:240px}
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{display:flex;min-height:100vh;background:#F4F6FA;font-family:'Inter',sans-serif;font-size:14px;color:#1A1A1A}
-    
+    :root {
+      --sidebar-w: 240px
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #F4F6FA;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #1A1A1A
+    }
+
     /* SIDEBAR */
-    .sidebar{width:var(--sidebar-w);background:#1A1A1A;color:#fff;display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:10}
-    .sidebar-logo{padding:1.5rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.08)}
-    .sidebar-logo .name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#D4A843;letter-spacing:.05em}
-    .sidebar-logo .sub{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:2px}
-    .sidebar-nav{flex:1;padding:1rem 0;overflow-y:auto}
-    .nav-section{padding:.5rem 1.2rem .3rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25)}
-    .nav-item{display:flex;align-items:center;gap:.75rem;padding:.75rem 1.2rem;color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s;border-radius:0;font-size:.82rem;font-weight:500}
-    .nav-item:hover,.nav-item.active{background:rgba(212,168,67,.12);color:#D4A843;padding-left:1.6rem}
-    .nav-item .icon{font-size:1rem;width:20px;text-align:center}
-    .sidebar-footer{padding:1.2rem;border-top:1px solid rgba(255,255,255,.08);font-size:.72rem;color:rgba(255,255,255,.3);text-align:center}
-    
+    .sidebar {
+      width: var(--sidebar-w);
+      background: #1A1A1A;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 10
+    }
+
+    .sidebar-logo {
+      padding: 1.5rem 1.2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, .08)
+    }
+
+    .sidebar-logo .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: #D4A843;
+      letter-spacing: .05em
+    }
+
+    .sidebar-logo .sub {
+      font-size: .65rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .35);
+      margin-top: 2px
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 1rem 0;
+      overflow-y: auto
+    }
+
+    .nav-section {
+      padding: .5rem 1.2rem .3rem;
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .25)
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .75rem 1.2rem;
+      color: rgba(255, 255, 255, .6);
+      cursor: pointer;
+      transition: all .2s;
+      border-radius: 0;
+      font-size: .82rem;
+      font-weight: 500
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background: rgba(212, 168, 67, .12);
+      color: #D4A843;
+      padding-left: 1.6rem
+    }
+
+    .nav-item .icon {
+      font-size: 1rem;
+      width: 20px;
+      text-align: center
+    }
+
+    .sidebar-footer {
+      padding: 1.2rem;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      font-size: .72rem;
+      color: rgba(255, 255, 255, .3);
+      text-align: center
+    }
+
     /* MAIN */
-    .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh}
-    
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh
+    }
+
     /* TOPBAR */
-    .topbar{background:#fff;padding:.85rem 1.5rem;border-bottom:1px solid #E8DCC8;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
-    .topbar h1{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:#8B6508}
-    .topbar-actions{display:flex;align-items:center;gap:.75rem}
-    .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.2rem;font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border:none;border-radius:4px;cursor:pointer;transition:all .2s;text-decoration:none}
-    .btn-primary{background:#B8860B;color:#fff}
-    .btn-primary:hover{background:#8B6508}
-    .btn-danger{background:#C0392B;color:#fff}
-    .btn-danger:hover{background:#a93226}
-    .btn-secondary{background:#fff;color:#1A1A1A;border:1px solid #E8DCC8}
-    .btn-secondary:hover{background:#FAF7F2}
-    .btn-success{background:#27AE60;color:#fff}
-    .btn-success:hover{background:#219a52}
-    .btn-sm{padding:.4rem .8rem;font-size:.7rem}
-    
+    .topbar {
+      background: #fff;
+      padding: .85rem 1.5rem;
+      border-bottom: 1px solid #E8DCC8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 5
+    }
+
+    .topbar h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #8B6508
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: .75rem
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .6rem 1.2rem;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none
+    }
+
+    .btn-primary {
+      background: #B8860B;
+      color: #fff
+    }
+
+    .btn-primary:hover {
+      background: #8B6508
+    }
+
+    .btn-danger {
+      background: #C0392B;
+      color: #fff
+    }
+
+    .btn-danger:hover {
+      background: #a93226
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: #1A1A1A;
+      border: 1px solid #E8DCC8
+    }
+
+    .btn-secondary:hover {
+      background: #FAF7F2
+    }
+
+    .btn-success {
+      background: #27AE60;
+      color: #fff
+    }
+
+    .btn-success:hover {
+      background: #219a52
+    }
+
+    .btn-sm {
+      padding: .4rem .8rem;
+      font-size: .7rem
+    }
+
     /* CONTENT */
-    .content{flex:1;padding:1.5rem}
+    .content {
+      flex: 1;
+      padding: 1.5rem
+    }
 
     /* STATS */
-    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
-    .stat-card{background:#fff;border-radius:8px;padding:1.2rem;border:1px solid #E8DCC8;display:flex;align-items:center;gap:1rem}
-    .stat-icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
-    .stat-icon.gold{background:#FAF0D7}
-    .stat-icon.green{background:#D5F5E3}
-    .stat-icon.blue{background:#D6EAF8}
-    .stat-icon.red{background:#FADBD8}
-    .stat-val{font-size:1.6rem;font-weight:700;line-height:1}
-    .stat-label{font-size:.72rem;color:#6B6B6B;letter-spacing:.05em;text-transform:uppercase;margin-top:.2rem}
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem
+    }
+
+    .stat-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.2rem;
+      border: 1px solid #E8DCC8;
+      display: flex;
+      align-items: center;
+      gap: 1rem
+    }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0
+    }
+
+    .stat-icon.gold {
+      background: #FAF0D7
+    }
+
+    .stat-icon.green {
+      background: #D5F5E3
+    }
+
+    .stat-icon.blue {
+      background: #D6EAF8
+    }
+
+    .stat-icon.red {
+      background: #FADBD8
+    }
+
+    .stat-val {
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1
+    }
+
+    .stat-label {
+      font-size: .72rem;
+      color: #6B6B6B;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-top: .2rem
+    }
 
     /* TOOLBAR */
-    .toolbar{background:#fff;border-radius:8px;border:1px solid #E8DCC8;padding:1rem;margin-bottom:1rem;display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
-    .search-input{flex:1;min-width:200px;padding:.6rem .9rem;border:1px solid #E8DCC8;border-radius:4px;font-size:.85rem;background:#FAF7F2}
-    .search-input:focus{outline:none;border-color:#B8860B}
-    .filter-select{padding:.6rem .9rem;border:1px solid #E8DCC8;border-radius:4px;font-size:.82rem;background:#fff}
+    .toolbar {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #E8DCC8;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      gap: .75rem;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      padding: .6rem .9rem;
+      border: 1px solid #E8DCC8;
+      border-radius: 4px;
+      font-size: .85rem;
+      background: #FAF7F2
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #B8860B
+    }
+
+    .filter-select {
+      padding: .6rem .9rem;
+      border: 1px solid #E8DCC8;
+      border-radius: 4px;
+      font-size: .82rem;
+      background: #fff
+    }
 
     /* TABLE */
-    .table-wrap{background:#fff;border-radius:8px;border:1px solid #E8DCC8;overflow:hidden}
-    table{width:100%;border-collapse:collapse}
-    thead{background:#FAF7F2}
-    th{padding:.85rem 1rem;text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6B6B6B;border-bottom:2px solid #E8DCC8;white-space:nowrap}
-    td{padding:.8rem 1rem;border-bottom:1px solid #F0EDE8;vertical-align:middle}
-    tr:hover td{background:#FDFBF8}
-    tr:last-child td{border-bottom:none}
-    .product-thumb{width:52px;height:52px;object-fit:cover;border-radius:6px;border:1px solid #E8DCC8}
-    .product-name{font-weight:600;font-size:.85rem}
-    .product-cat{font-size:.72rem;color:#6B6B6B;margin-top:2px}
-    .price-val{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:#8B6508}
-    .price-old{font-size:.72rem;color:#999;text-decoration:line-through;display:block}
-    .badge{display:inline-block;padding:.2rem .6rem;border-radius:100px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
-    .badge-hit{background:#FEF3C7;color:#92400E}
-    .badge-new{background:#D1FAE5;color:#065F46}
-    .badge-sale{background:#FEE2E2;color:#991B1B}
-    .badge-none{background:#F3F4F6;color:#6B6B6B}
-    .stock-on{color:#27AE60;font-weight:600;font-size:.78rem}
-    .stock-off{color:#C0392B;font-weight:600;font-size:.78rem}
-    .action-btns{display:flex;gap:.4rem}
-    .empty-state{text-align:center;padding:3rem;color:#6B6B6B}
-    .empty-state .emoji{font-size:2.5rem;margin-bottom:.75rem}
+    .table-wrap {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #E8DCC8;
+      overflow: hidden
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse
+    }
+
+    thead {
+      background: #FAF7F2
+    }
+
+    th {
+      padding: .85rem 1rem;
+      text-align: left;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #6B6B6B;
+      border-bottom: 2px solid #E8DCC8;
+      white-space: nowrap
+    }
+
+    td {
+      padding: .8rem 1rem;
+      border-bottom: 1px solid #F0EDE8;
+      vertical-align: middle
+    }
+
+    tr:hover td {
+      background: #FDFBF8
+    }
+
+    tr:last-child td {
+      border-bottom: none
+    }
+
+    .product-thumb {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #E8DCC8
+    }
+
+    .product-name {
+      font-weight: 600;
+      font-size: .85rem
+    }
+
+    .product-cat {
+      font-size: .72rem;
+      color: #6B6B6B;
+      margin-top: 2px
+    }
+
+    .price-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #8B6508
+    }
+
+    .price-old {
+      font-size: .72rem;
+      color: #999;
+      text-decoration: line-through;
+      display: block
+    }
+
+    .badge {
+      display: inline-block;
+      padding: .2rem .6rem;
+      border-radius: 100px;
+      font-size: .65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em
+    }
+
+    .badge-hit {
+      background: #FEF3C7;
+      color: #92400E
+    }
+
+    .badge-new {
+      background: #D1FAE5;
+      color: #065F46
+    }
+
+    .badge-sale {
+      background: #FEE2E2;
+      color: #991B1B
+    }
+
+    .badge-none {
+      background: #F3F4F6;
+      color: #6B6B6B
+    }
+
+    .stock-on {
+      color: #27AE60;
+      font-weight: 600;
+      font-size: .78rem
+    }
+
+    .stock-off {
+      color: #C0392B;
+      font-weight: 600;
+      font-size: .78rem
+    }
+
+    .action-btns {
+      display: flex;
+      gap: .4rem
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #6B6B6B
+    }
+
+    .empty-state .emoji {
+      font-size: 2.5rem;
+      margin-bottom: .75rem
+    }
 
     /* MODAL */
-    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;visibility:hidden;transition:all .2s}
-    .modal-overlay.open{opacity:1;visibility:visible}
-    .modal{background:#fff;border-radius:12px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
-    .modal-header{padding:1.2rem 1.5rem;border-bottom:1px solid #E8DCC8;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:1}
-    .modal-header h2{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:#8B6508}
-    .modal-close{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#F4F6FA;border:none;cursor:pointer;font-size:1.1rem;color:#6B6B6B}
-    .modal-close:hover{background:#E8DCC8}
-    .modal-body{padding:1.5rem}
-    .modal-footer{padding:1rem 1.5rem;border-top:1px solid #E8DCC8;display:flex;justify-content:flex-end;gap:.75rem;background:#FAF7F2;border-radius:0 0 12px 12px}
-    
-    /* FORM */
-    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-    .form-group{margin-bottom:0}
-    .form-group.full{grid-column:1/-1}
-    label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6B6B6B;margin-bottom:.4rem}
-    input,select,textarea{width:100%;padding:.65rem .9rem;border:1px solid #E8DCC8;border-radius:4px;font-size:.88rem;background:#FAF7F2;color:#1A1A1A;font-family:'Inter',sans-serif;transition:border-color .2s}
-    input:focus,select:focus,textarea:focus{outline:none;border-color:#B8860B;background:#fff}
-    textarea{resize:vertical;min-height:90px}
-    .img-preview{width:80px;height:80px;object-fit:cover;border-radius:6px;border:1px solid #E8DCC8;margin-top:.5rem;display:none}
-    .img-preview.show{display:block}
-    
-    /* Toast */
-    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A1A1A;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-size:.82rem;font-weight:500;z-index:999;opacity:0;visibility:hidden;transition:all .25s;display:flex;align-items:center;gap:.5rem;white-space:nowrap}
-    .toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
-    
-    /* Confirm Dialog */
-    .confirm-dialog{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
-    .confirm-dialog.open{display:flex}
-    .confirm-box{background:#fff;border-radius:10px;padding:2rem;max-width:380px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2)}
-    .confirm-box h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin-bottom:.75rem;color:#C0392B}
-    .confirm-box p{font-size:.85rem;color:#6B6B6B;margin-bottom:1.5rem;line-height:1.6}
-    .confirm-box .actions{display:flex;gap:.75rem;justify-content:center}
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .5);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all .2s
+    }
 
-    @media(max-width:768px){
-      .sidebar{display:none}
-      .main{margin-left:0}
-      .stats-grid{grid-template-columns:repeat(2,1fr)}
-      .form-grid{grid-template-columns:1fr}
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 640px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .2)
+    }
+
+    .modal-header {
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid #E8DCC8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 1
+    }
+
+    .modal-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #8B6508
+    }
+
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #F4F6FA;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #6B6B6B
+    }
+
+    .modal-close:hover {
+      background: #E8DCC8
+    }
+
+    .modal-body {
+      padding: 1.5rem
+    }
+
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid #E8DCC8;
+      display: flex;
+      justify-content: flex-end;
+      gap: .75rem;
+      background: #FAF7F2;
+      border-radius: 0 0 12px 12px
+    }
+
+    /* FORM */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem
+    }
+
+    .form-group {
+      margin-bottom: 0
+    }
+
+    .form-group.full {
+      grid-column: 1/-1
+    }
+
+    label {
+      display: block;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #6B6B6B;
+      margin-bottom: .4rem
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: .65rem .9rem;
+      border: 1px solid #E8DCC8;
+      border-radius: 4px;
+      font-size: .88rem;
+      background: #FAF7F2;
+      color: #1A1A1A;
+      font-family: 'Inter', sans-serif;
+      transition: border-color .2s
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #B8860B;
+      background: #fff
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px
+    }
+
+    .img-preview {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #E8DCC8;
+      margin-top: .5rem;
+      display: none
+    }
+
+    .img-preview.show {
+      display: block
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1A1A1A;
+      color: #fff;
+      padding: .8rem 1.5rem;
+      border-radius: 8px;
+      font-size: .82rem;
+      font-weight: 500;
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all .25s;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      white-space: nowrap
+    }
+
+    .toast.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    /* Confirm Dialog */
+    .confirm-dialog {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center
+    }
+
+    .confirm-dialog.open {
+      display: flex
+    }
+
+    .confirm-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 2rem;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .2)
+    }
+
+    .confirm-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      margin-bottom: .75rem;
+      color: #C0392B
+    }
+
+    .confirm-box p {
+      font-size: .85rem;
+      color: #6B6B6B;
+      margin-bottom: 1.5rem;
+      line-height: 1.6
+    }
+
+    .confirm-box .actions {
+      display: flex;
+      gap: .75rem;
+      justify-content: center
+    }
+
+    @media(max-width:768px) {
+      .sidebar {
+        display: none
+      }
+
+      .main {
+        margin-left: 0
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr
+      }
     }
   </style>
 </head>
+
 <body>
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
-  <div class="sidebar-logo">
-    <div class="name">Altyn Biye</div>
-    <div class="sub">Admin Panel</div>
-  </div>
-  <nav class="sidebar-nav">
-    <div class="nav-section">Управление</div>
-    <div class="nav-item active" onclick="showSection('products')"><span class="icon">💎</span> Товары</div>
-    <div class="nav-item" onclick="showSection('stats')"><span class="icon">📊</span> Статистика</div>
-    <div class="nav-section">Сайт</div>
-    <div class="nav-item" onclick="window.open('/','_blank')"><span class="icon">🏠</span> Главная</div>
-    <div class="nav-item" onclick="window.open('/catalog.html','_blank')"><span class="icon">📦</span> Каталог</div>
-  </nav>
-  <div class="sidebar-footer">Altyn Biye © 2024</div>
-</aside>
-
-<!-- MAIN -->
-<div class="main">
-  <div class="topbar">
-    <h1 id="page-title">Управление товарами</h1>
-    <div class="topbar-actions">
-      <button class="btn btn-primary" onclick="openAddModal()">+ Добавить товар</button>
-      <a href="/catalog.html" target="_blank" class="btn btn-secondary">↗ Каталог</a>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="name">Altyn Biye</div>
+      <div class="sub">Admin Panel</div>
     </div>
-  </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Управление</div>
+      <div class="nav-item active" id="nav-products" onclick="showSection('products')"><span class="icon">💎</span>
+        Товары</div>
+      <div class="nav-item" id="nav-categories" onclick="showSection('categories')"><span class="icon">🏷️</span>
+        Категории</div>
+      <div class="nav-item" onclick="showSection('stats')"><span class="icon">📊</span> Статистика</div>
+      <div class="nav-section">Сайт</div>
+      <div class="nav-item" onclick="window.open('/','_blank')"><span class="icon">🏠</span> Главная</div>
+      <div class="nav-item" onclick="window.open('/catalog.html','_blank')"><span class="icon">📦</span> Каталог</div>
+    </nav>
+    <div class="sidebar-footer">Altyn Biye © 2024</div>
+  </aside>
 
-  <div class="content">
-    <!-- Stats row -->
-    <div class="stats-grid" id="stats-grid">
-      <div class="stat-card"><div class="stat-icon gold">💎</div><div><div class="stat-val" id="stat-total">—</div><div class="stat-label">Всего товаров</div></div></div>
-      <div class="stat-card"><div class="stat-icon green">✅</div><div><div class="stat-val" id="stat-instock">—</div><div class="stat-label">В наличии</div></div></div>
-      <div class="stat-card"><div class="stat-icon blue">🏷️</div><div><div class="stat-val" id="stat-cats">—</div><div class="stat-label">Категорий</div></div></div>
-      <div class="stat-card"><div class="stat-icon red">🔥</div><div><div class="stat-val" id="stat-sale">—</div><div class="stat-label">Распродажа</div></div></div>
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <h1 id="page-title">Управление товарами</h1>
+      <div class="topbar-actions">
+        <button class="btn btn-primary" onclick="openAddModal()">+ Добавить товар</button>
+        <a href="/catalog.html" target="_blank" class="btn btn-secondary">↗ Каталог</a>
+      </div>
     </div>
 
-    <!-- Toolbar -->
-    <div class="toolbar">
-      <input class="search-input" id="search-input" placeholder="🔍  Поиск по названию, материалу..." oninput="filterTable()">
-      <select class="filter-select" id="filter-cat" onchange="filterTable()">
-        <option value="">Все категории</option>
-        <option value="necklaces">Ожерелья</option>
-        <option value="earrings">Серьги</option>
-        <option value="bracelets">Браслеты</option>
-        <option value="rings">Кольца</option>
-        <option value="headpieces">Головные украшения</option>
-        <option value="sets">Свадебные наборы</option>
-      </select>
-      <select class="filter-select" id="filter-badge" onchange="filterTable()">
-        <option value="">Все метки</option>
-        <option value="hit">Хит</option>
-        <option value="new">Новинка</option>
-        <option value="sale">Скидка</option>
-      </select>
-      <select class="filter-select" id="filter-stock" onchange="filterTable()">
-        <option value="">Любой статус</option>
-        <option value="1">В наличии</option>
-        <option value="0">Нет в наличии</option>
-      </select>
-      <button class="btn btn-secondary btn-sm" onclick="clearFilters()">Сбросить</button>
-    </div>
-
-    <!-- Table -->
-    <div class="table-wrap">
-      <table id="products-table">
-        <thead>
-          <tr>
-            <th>Фото</th>
-            <th>Название</th>
-            <th>Категория</th>
-            <th>Цена</th>
-            <th>Метка</th>
-            <th>Металл</th>
-            <th>Статус</th>
-            <th>Действия</th>
-          </tr>
-        </thead>
-        <tbody id="table-body">
-          <tr><td colspan="8"><div class="empty-state"><div class="emoji">⏳</div>Загрузка...</div></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- ADD / EDIT MODAL -->
-<div class="modal-overlay" id="product-modal">
-  <div class="modal">
-    <div class="modal-header">
-      <h2 id="modal-title">Добавить товар</h2>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <form class="modal-body" id="product-form" enctype="multipart/form-data">
-      <input type="hidden" id="edit-id">
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Название (RU) *</label>
-          <input type="text" id="f-name" placeholder="Алтын Моншақ" required>
-        </div>
-        <div class="form-group">
-          <label>Название (KZ)</label>
-          <input type="text" id="f-name-kz" placeholder="Алтын Моншақ">
-        </div>
-        <div class="form-group">
-          <label>Категория *</label>
-          <select id="f-category" required>
-            <option value="">Выберите...</option>
-            <option value="necklaces">Ожерелья</option>
-            <option value="earrings">Серьги</option>
-            <option value="bracelets">Браслеты</option>
-            <option value="rings">Кольца</option>
-            <option value="headpieces">Головные украшения</option>
-            <option value="sets">Свадебные наборы</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Метка</label>
-          <select id="f-badge">
-            <option value="">Нет</option>
-            <option value="hit">Хит продаж</option>
-            <option value="new">Новинка</option>
-            <option value="sale">Скидка</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Цена (₸) *</label>
-          <input type="number" id="f-price" placeholder="85000" min="0" required>
-        </div>
-        <div class="form-group">
-          <label>Старая цена (₸)</label>
-          <input type="number" id="f-old-price" placeholder="100000" min="0">
-        </div>
-        <div class="form-group">
-          <label>Металл</label>
-          <select id="f-metal">
-            <option value="gold585">Золото 585</option>
-            <option value="gold750">Золото 750</option>
-            <option value="silver">Серебро</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Камень</label>
-          <select id="f-stone">
-            <option value="turquoise">Бирюза</option>
-            <option value="pearl">Жемчуг</option>
-            <option value="coral">Коралл</option>
-            <option value="garnet">Гранат</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Рейтинг (1-5)</label>
-          <input type="number" id="f-rating" value="5" min="1" max="5" step="0.1">
-        </div>
-        <div class="form-group">
-          <label>В наличии</label>
-          <select id="f-stock">
-            <option value="1">Да</option>
-            <option value="0">Нет</option>
-          </select>
-        </div>
-        <div class="form-group full">
-          <label>Материал</label>
-          <input type="text" id="f-material" placeholder="Золото 585 · Бирюза">
-        </div>
-        <div class="form-group full">
-          <label>Фото товара</label>
-          <input type="file" id="f-img" accept="image/*" onchange="previewImg(this)">
-          <img id="img-preview" class="img-preview" alt="Preview">
-          <div style="margin-top:.4rem">
-            <label>Или URL фото</label>
-            <input type="text" id="f-img-url" placeholder="/images/category_necklaces.png">
+    <!-- PRODUCTS SECTION -->
+    <div class="content" id="section-products">
+      <!-- Stats row -->
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon gold">💎</div>
+          <div>
+            <div class="stat-val" id="stat-total">—</div>
+            <div class="stat-label">Всего товаров</div>
           </div>
         </div>
-        <div class="form-group full">
-          <label>Описание</label>
-          <textarea id="f-description" placeholder="Подробное описание украшения..."></textarea>
+        <div class="stat-card">
+          <div class="stat-icon green">✅</div>
+          <div>
+            <div class="stat-val" id="stat-instock">—</div>
+            <div class="stat-label">В наличии</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue">🏷️</div>
+          <div>
+            <div class="stat-val" id="stat-cats">—</div>
+            <div class="stat-label">Категорий</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red">🔥</div>
+          <div>
+            <div class="stat-val" id="stat-sale">—</div>
+            <div class="stat-label">Распродажа</div>
+          </div>
         </div>
       </div>
-    </form>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal()">Отмена</button>
-      <button class="btn btn-primary" onclick="saveProduct()">💾 Сохранить</button>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <input class="search-input" id="search-input" placeholder="🔍  Поиск по названию, материалу..."
+          oninput="filterTable()">
+        <select class="filter-select" id="filter-cat" onchange="filterTable()">
+          <option value="">Все категории</option>
+          <option value="necklaces">Ожерелья</option>
+          <option value="earrings">Серьги</option>
+          <option value="bracelets">Браслеты</option>
+          <option value="rings">Кольца</option>
+          <option value="headpieces">Головные украшения</option>
+          <option value="sets">Свадебные наборы</option>
+        </select>
+        <select class="filter-select" id="filter-badge" onchange="filterTable()">
+          <option value="">Все метки</option>
+          <option value="hit">Хит</option>
+          <option value="new">Новинка</option>
+          <option value="sale">Скидка</option>
+        </select>
+        <select class="filter-select" id="filter-stock" onchange="filterTable()">
+          <option value="">Любой статус</option>
+          <option value="1">В наличии</option>
+          <option value="0">Нет в наличии</option>
+        </select>
+        <button class="btn btn-secondary btn-sm" onclick="clearFilters()">Сбросить</button>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <table id="products-table">
+          <thead>
+            <tr>
+              <th>Фото</th>
+              <th>Название</th>
+              <th>Категория</th>
+              <th>Цена</th>
+              <th>Метка</th>
+              <th>Металл</th>
+              <th>Статус</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <tr>
+              <td colspan="8">
+                <div class="empty-state">
+                  <div class="emoji">⏳</div>Загрузка...
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CATEGORIES SECTION -->
+    <div class="content" id="section-categories" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:#8B6508">Управление
+          категориями</h2>
+        <button class="btn btn-primary" onclick="openAddCatModal()">+ Добавить категорию</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Фото</th>
+              <th>ID</th>
+              <th>Название RU</th>
+              <th>Название KZ</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="cat-table-body">
+            <tr>
+              <td colspan="5">
+                <div class="empty-state">
+                  <div class="emoji">⏳</div>Загрузка...
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- CONFIRM DIALOG -->
-<div class="confirm-dialog" id="confirm-dialog">
-  <div class="confirm-box">
-    <h3>⚠️ Подтвердите удаление</h3>
-    <p id="confirm-text">Вы уверены, что хотите удалить этот товар? Это действие необратимо.</p>
-    <div class="actions">
-      <button class="btn btn-secondary" onclick="closeConfirm()">Отмена</button>
-      <button class="btn btn-danger" id="confirm-ok" onclick="">Удалить</button>
+  <!-- CATEGORY MODAL -->
+  <div class="modal-overlay" id="cat-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="cat-modal-title">Добавить категорию</h2>
+        <button class="modal-close" onclick="closeCatModal()">✕</button>
+      </div>
+      <form class="modal-body" id="cat-form">
+        <input type="hidden" id="cat-edit-id">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>ID (slug) *</label>
+            <input type="text" id="cat-id" placeholder="necklaces" required>
+          </div>
+          <div class="form-group"></div>
+          <div class="form-group">
+            <label>Название RU *</label>
+            <input type="text" id="cat-name" placeholder="Ожерелья" required>
+          </div>
+          <div class="form-group">
+            <label>Название KZ *</label>
+            <input type="text" id="cat-name-kz" placeholder="Моншақтар" required>
+          </div>
+          <div class="form-group full">
+            <label>Фото (URL)</label>
+            <input type="text" id="cat-img" placeholder="/images/category_necklaces.png">
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeCatModal()">Отмена</button>
+        <button class="btn btn-primary" onclick="saveCat()">💾 Сохранить</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
+  <!-- ADD / EDIT PRODUCT MODAL -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-title">Добавить товар</h2>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <form class="modal-body" id="product-form" enctype="multipart/form-data">
+        <input type="hidden" id="edit-id">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Название (RU) *</label>
+            <input type="text" id="f-name" placeholder="Алтын Моншақ" required>
+          </div>
+          <div class="form-group">
+            <label>Название (KZ)</label>
+            <input type="text" id="f-name-kz" placeholder="Алтын Моншақ">
+          </div>
+          <div class="form-group">
+            <label>Категория *</label>
+            <select id="f-category" required>
+              <option value="">Выберите...</option>
+              <option value="necklaces">Ожерелья</option>
+              <option value="earrings">Серьги</option>
+              <option value="bracelets">Браслеты</option>
+              <option value="rings">Кольца</option>
+              <option value="headpieces">Головные украшения</option>
+              <option value="sets">Свадебные наборы</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Метка</label>
+            <select id="f-badge">
+              <option value="">Нет</option>
+              <option value="hit">Хит продаж</option>
+              <option value="new">Новинка</option>
+              <option value="sale">Скидка</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Цена (₸) *</label>
+            <input type="number" id="f-price" placeholder="85000" min="0" required>
+          </div>
+          <div class="form-group">
+            <label>Старая цена (₸)</label>
+            <input type="number" id="f-old-price" placeholder="100000" min="0">
+          </div>
+          <div class="form-group">
+            <label>Металл</label>
+            <select id="f-metal">
+              <option value="gold585">Золото 585</option>
+              <option value="gold750">Золото 750</option>
+              <option value="silver">Серебро</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Камень</label>
+            <select id="f-stone">
+              <option value="turquoise">Бирюза</option>
+              <option value="pearl">Жемчуг</option>
+              <option value="coral">Коралл</option>
+              <option value="garnet">Гранат</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Рейтинг (1-5)</label>
+            <input type="number" id="f-rating" value="5" min="1" max="5" step="0.1">
+          </div>
+          <div class="form-group">
+            <label>В наличии</label>
+            <select id="f-stock">
+              <option value="1">Да</option>
+              <option value="0">Нет</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Материал</label>
+            <input type="text" id="f-material" placeholder="Золото 585 · Бирюза">
+          </div>
+          <div class="form-group full">
+            <label>Фото товара</label>
+            <input type="file" id="f-img" accept="image/*" onchange="previewImg(this)">
+            <img id="img-preview" class="img-preview" alt="Preview">
+            <div style="margin-top:.4rem">
+              <label>Или URL фото</label>
+              <input type="text" id="f-img-url" placeholder="/images/category_necklaces.png">
+            </div>
+          </div>
+          <div class="form-group full">
+            <label>Описание</label>
+            <textarea id="f-description" placeholder="Подробное описание украшения..."></textarea>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal()">Отмена</button>
+        <button class="btn btn-primary" onclick="saveProduct()">💾 Сохранить</button>
+      </div>
+    </div>
+  </div>
 
-<script>
-const API = '/api/products';
-const CAT_NAMES = {necklaces:'Ожерелья',earrings:'Серьги',bracelets:'Браслеты',rings:'Кольца',headpieces:'Головные украшения',sets:'Свадебные наборы'};
-const BADGE_CLS = {hit:'badge-hit',new:'badge-new',sale:'badge-sale','':{class:'badge-none',label:'—'}};
-const BADGE_LABELS = {hit:'Хит',new:'Новинка',sale:'Скидка','':{label:'—'}};
+  <!-- CONFIRM DIALOG -->
+  <div class="confirm-dialog" id="confirm-dialog">
+    <div class="confirm-box">
+      <h3>⚠️ Подтвердите удаление</h3>
+      <p id="confirm-text">Вы уверены, что хотите удалить этот товар? Это действие необратимо.</p>
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="closeConfirm()">Отмена</button>
+        <button class="btn btn-danger" id="confirm-ok" onclick="">Удалить</button>
+      </div>
+    </div>
+  </div>
 
-let allProducts = [];
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
 
-// ── FETCH & RENDER ──────────────────────────────────────────
-async function loadProducts() {
-  try {
-    const res = await fetch(API);
-    const json = await res.json();
-    allProducts = json.data || [];
-    renderTable(allProducts);
-    loadStats();
-  } catch(e) {
-    document.getElementById('table-body').innerHTML =
-      `<tr><td colspan="8"><div class="empty-state"><div class="emoji">❌</div>Ошибка: убедитесь что сервер запущен<br><small>node server/index.js</small></div></td></tr>`;
-  }
-}
+  <script>
+    const API = '/api/products';
+    const CAT_NAMES = { necklaces: 'Ожерелья', earrings: 'Серьги', bracelets: 'Браслеты', rings: 'Кольца', headpieces: 'Головные украшения', sets: 'Свадебные наборы' };
+    const BADGE_CLS = { hit: 'badge-hit', new: 'badge-new', sale: 'badge-sale', '': { class: 'badge-none', label: '—' } };
+    const BADGE_LABELS = { hit: 'Хит', new: 'Новинка', sale: 'Скидка', '': { label: '—' } };
 
-async function loadStats() {
-  try {
-    const res = await fetch('/api/products/stats');
-    const {data} = await res.json();
-    document.getElementById('stat-total').textContent = data.total;
-    document.getElementById('stat-instock').textContent = data.inStock;
-    document.getElementById('stat-cats').textContent = data.byCategory.length;
-    const saleCount = allProducts.filter(p => p.badge === 'sale').length;
-    document.getElementById('stat-sale').textContent = saleCount;
-  } catch(e) {}
-}
+    let allProducts = [];
 
-function renderTable(products) {
-  const tbody = document.getElementById('table-body');
-  if (!products.length) {
-    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="emoji">📦</div>Товаров не найдено</div></td></tr>`;
-    return;
-  }
-  tbody.innerHTML = products.map(p => `
+    // ── FETCH & RENDER ──────────────────────────────────────────
+    async function loadProducts() {
+      try {
+        const res = await fetch(API);
+        const json = await res.json();
+        allProducts = json.data || [];
+        renderTable(allProducts);
+        loadStats();
+      } catch (e) {
+        document.getElementById('table-body').innerHTML =
+          `<tr><td colspan="8"><div class="empty-state"><div class="emoji">❌</div>Ошибка: убедитесь что сервер запущен<br><small>node server/index.js</small></div></td></tr>`;
+      }
+    }
+
+    async function loadStats() {
+      try {
+        const res = await fetch('/api/products/stats');
+        const { data } = await res.json();
+        document.getElementById('stat-total').textContent = data.total;
+        document.getElementById('stat-instock').textContent = data.inStock;
+        document.getElementById('stat-cats').textContent = data.byCategory.length;
+        const saleCount = allProducts.filter(p => p.badge === 'sale').length;
+        document.getElementById('stat-sale').textContent = saleCount;
+      } catch (e) { }
+    }
+
+    function renderTable(products) {
+      const tbody = document.getElementById('table-body');
+      if (!products.length) {
+        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="emoji">📦</div>Товаров не найдено</div></td></tr>`;
+        return;
+      }
+      tbody.innerHTML = products.map(p => `
     <tr>
-      <td><img class="product-thumb" src="${p.img||'/images/category_sets.png'}" alt="${p.name}" onerror="this.src='/images/category_sets.png'"></td>
+      <td><img class="product-thumb" src="${p.img || '/images/category_sets.png'}" alt="${p.name}" onerror="this.src='/images/category_sets.png'"></td>
       <td>
         <div class="product-name">${p.name}</div>
-        <div class="product-cat">${p.material||''}</div>
+        <div class="product-cat">${p.material || ''}</div>
       </td>
-      <td>${CAT_NAMES[p.category]||p.category}</td>
+      <td>${CAT_NAMES[p.category] || p.category}</td>
       <td>
         <div class="price-val">${p.price.toLocaleString('ru-KZ')} ₸</div>
-        ${p.old_price?`<span class="price-old">${p.old_price.toLocaleString('ru-KZ')} ₸</span>`:''}
+        ${p.old_price ? `<span class="price-old">${p.old_price.toLocaleString('ru-KZ')} ₸</span>` : ''}
       </td>
-      <td>${p.badge?`<span class="badge ${BADGE_CLS[p.badge]||'badge-none'}">${BADGE_LABELS[p.badge]||p.badge}</span>`:`<span class="badge badge-none">—</span>`}</td>
+      <td>${p.badge ? `<span class="badge ${BADGE_CLS[p.badge] || 'badge-none'}">${BADGE_LABELS[p.badge] || p.badge}</span>` : `<span class="badge badge-none">—</span>`}</td>
       <td>${metalLabel(p.metal)}</td>
-      <td class="${p.in_stock?'stock-on':'stock-off'}">${p.in_stock?'✅ Есть':'❌ Нет'}</td>
+      <td class="${p.in_stock ? 'stock-on' : 'stock-off'}">${p.in_stock ? '✅ Есть' : '❌ Нет'}</td>
       <td>
         <div class="action-btns">
           <button class="btn btn-secondary btn-sm" onclick="openEditModal('${p.id}')">✏️</button>
-          <button class="btn btn-danger btn-sm" onclick="confirmDelete('${p.id}','${p.name.replace(/'/g,"\\'")}')">🗑️</button>
+          <button class="btn btn-danger btn-sm" onclick="confirmDelete('${p.id}','${p.name.replace(/'/g, "\\'")}')">🗑️</button>
         </div>
       </td>
     </tr>`).join('');
-}
+    }
 
-function metalLabel(m){const map={gold585:'Зол. 585',gold750:'Зол. 750',silver:'Серебро'};return map[m]||m}
+    function metalLabel(m) { const map = { gold585: 'Зол. 585', gold750: 'Зол. 750', silver: 'Серебро' }; return map[m] || m }
 
-// ── FILTER ──────────────────────────────────────────────────
-function filterTable() {
-  const q = document.getElementById('search-input').value.toLowerCase();
-  const cat = document.getElementById('filter-cat').value;
-  const badge = document.getElementById('filter-badge').value;
-  const stock = document.getElementById('filter-stock').value;
-  const filtered = allProducts.filter(p => {
-    if (q && !p.name.toLowerCase().includes(q) && !(p.material||'').toLowerCase().includes(q)) return false;
-    if (cat && p.category !== cat) return false;
-    if (badge && p.badge !== badge) return false;
-    if (stock !== '' && String(p.in_stock) !== stock) return false;
-    return true;
-  });
-  renderTable(filtered);
-}
-function clearFilters() {
-  document.getElementById('search-input').value='';
-  document.getElementById('filter-cat').value='';
-  document.getElementById('filter-badge').value='';
-  document.getElementById('filter-stock').value='';
-  renderTable(allProducts);
-}
+    // ── FILTER ──────────────────────────────────────────────────
+    function filterTable() {
+      const q = document.getElementById('search-input').value.toLowerCase();
+      const cat = document.getElementById('filter-cat').value;
+      const badge = document.getElementById('filter-badge').value;
+      const stock = document.getElementById('filter-stock').value;
+      const filtered = allProducts.filter(p => {
+        if (q && !p.name.toLowerCase().includes(q) && !(p.material || '').toLowerCase().includes(q)) return false;
+        if (cat && p.category !== cat) return false;
+        if (badge && p.badge !== badge) return false;
+        if (stock !== '' && String(p.in_stock) !== stock) return false;
+        return true;
+      });
+      renderTable(filtered);
+    }
+    function clearFilters() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('filter-cat').value = '';
+      document.getElementById('filter-badge').value = '';
+      document.getElementById('filter-stock').value = '';
+      renderTable(allProducts);
+    }
 
-// ── MODAL ───────────────────────────────────────────────────
-function openAddModal() {
-  document.getElementById('modal-title').textContent = 'Добавить товар';
-  document.getElementById('edit-id').value = '';
-  document.getElementById('product-form').reset();
-  document.getElementById('img-preview').classList.remove('show');
-  document.getElementById('product-modal').classList.add('open');
-}
+    // ── MODAL ───────────────────────────────────────────────────
+    function openAddModal() {
+      document.getElementById('modal-title').textContent = 'Добавить товар';
+      document.getElementById('edit-id').value = '';
+      document.getElementById('product-form').reset();
+      document.getElementById('img-preview').classList.remove('show');
+      document.getElementById('product-modal').classList.add('open');
+    }
 
-async function openEditModal(id) {
-  const p = allProducts.find(x => x.id === id);
-  if (!p) return;
-  document.getElementById('modal-title').textContent = 'Редактировать товар';
-  document.getElementById('edit-id').value = id;
-  document.getElementById('f-name').value = p.name;
-  document.getElementById('f-name-kz').value = p.name_kz||'';
-  document.getElementById('f-category').value = p.category;
-  document.getElementById('f-badge').value = p.badge||'';
-  document.getElementById('f-price').value = p.price;
-  document.getElementById('f-old-price').value = p.old_price||'';
-  document.getElementById('f-metal').value = p.metal||'gold585';
-  document.getElementById('f-stone').value = p.stone||'turquoise';
-  document.getElementById('f-rating').value = p.rating||5;
-  document.getElementById('f-stock').value = p.in_stock?'1':'0';
-  document.getElementById('f-material').value = p.material||'';
-  document.getElementById('f-description').value = p.description||'';
-  document.getElementById('f-img-url').value = p.img||'';
-  const preview = document.getElementById('img-preview');
-  if (p.img) { preview.src = p.img; preview.classList.add('show'); }
-  else preview.classList.remove('show');
-  document.getElementById('product-modal').classList.add('open');
-}
+    async function openEditModal(id) {
+      const p = allProducts.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('modal-title').textContent = 'Редактировать товар';
+      document.getElementById('edit-id').value = id;
+      document.getElementById('f-name').value = p.name;
+      document.getElementById('f-name-kz').value = p.name_kz || '';
+      document.getElementById('f-category').value = p.category;
+      document.getElementById('f-badge').value = p.badge || '';
+      document.getElementById('f-price').value = p.price;
+      document.getElementById('f-old-price').value = p.old_price || '';
+      document.getElementById('f-metal').value = p.metal || 'gold585';
+      document.getElementById('f-stone').value = p.stone || 'turquoise';
+      document.getElementById('f-rating').value = p.rating || 5;
+      document.getElementById('f-stock').value = p.in_stock ? '1' : '0';
+      document.getElementById('f-material').value = p.material || '';
+      document.getElementById('f-description').value = p.description || '';
+      document.getElementById('f-img-url').value = p.img || '';
+      const preview = document.getElementById('img-preview');
+      if (p.img) { preview.src = p.img; preview.classList.add('show'); }
+      else preview.classList.remove('show');
+      document.getElementById('product-modal').classList.add('open');
+    }
 
-function closeModal() {
-  document.getElementById('product-modal').classList.remove('open');
-}
+    function closeModal() {
+      document.getElementById('product-modal').classList.remove('open');
+    }
 
-async function saveProduct() {
-  const id = document.getElementById('edit-id').value;
-  const form = document.getElementById('product-form');
-  const fd = new FormData();
-  fd.append('name', document.getElementById('f-name').value);
-  fd.append('name_kz', document.getElementById('f-name-kz').value);
-  fd.append('category', document.getElementById('f-category').value);
-  fd.append('badge', document.getElementById('f-badge').value);
-  fd.append('price', document.getElementById('f-price').value);
-  fd.append('old_price', document.getElementById('f-old-price').value);
-  fd.append('metal', document.getElementById('f-metal').value);
-  fd.append('stone', document.getElementById('f-stone').value);
-  fd.append('rating', document.getElementById('f-rating').value);
-  fd.append('in_stock', document.getElementById('f-stock').value);
-  fd.append('material', document.getElementById('f-material').value);
-  fd.append('description', document.getElementById('f-description').value);
-  fd.append('img_url', document.getElementById('f-img-url').value);
-  const imgFile = document.getElementById('f-img').files[0];
-  if (imgFile) fd.append('img', imgFile);
+    async function saveProduct() {
+      const id = document.getElementById('edit-id').value;
+      const form = document.getElementById('product-form');
+      const fd = new FormData();
+      fd.append('name', document.getElementById('f-name').value);
+      fd.append('name_kz', document.getElementById('f-name-kz').value);
+      fd.append('category', document.getElementById('f-category').value);
+      fd.append('badge', document.getElementById('f-badge').value);
+      fd.append('price', document.getElementById('f-price').value);
+      fd.append('old_price', document.getElementById('f-old-price').value);
+      fd.append('metal', document.getElementById('f-metal').value);
+      fd.append('stone', document.getElementById('f-stone').value);
+      fd.append('rating', document.getElementById('f-rating').value);
+      fd.append('in_stock', document.getElementById('f-stock').value);
+      fd.append('material', document.getElementById('f-material').value);
+      fd.append('description', document.getElementById('f-description').value);
+      fd.append('img_url', document.getElementById('f-img-url').value);
+      const imgFile = document.getElementById('f-img').files[0];
+      if (imgFile) fd.append('img', imgFile);
 
-  if (!fd.get('name') || !fd.get('category') || !fd.get('price')) {
-    showToast('❌ Заполните обязательные поля');
-    return;
-  }
+      if (!fd.get('name') || !fd.get('category') || !fd.get('price')) {
+        showToast('❌ Заполните обязательные поля');
+        return;
+      }
 
-  try {
-    const url = id ? `${API}/${id}` : API;
-    const method = id ? 'PUT' : 'POST';
-    const res = await fetch(url, { method, body: fd });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error);
-    closeModal();
-    await loadProducts();
-    showToast(id ? '✅ Товар обновлён' : '✅ Товар добавлен');
-  } catch(e) {
-    showToast('❌ Ошибка: ' + e.message);
-  }
-}
+      try {
+        const url = id ? `${API}/${id}` : API;
+        const method = id ? 'PUT' : 'POST';
+        const res = await fetch(url, { method, body: fd });
+        const json = await res.json();
+        if (!json.success) throw new Error(json.error);
+        closeModal();
+        await loadProducts();
+        showToast(id ? '✅ Товар обновлён' : '✅ Товар добавлен');
+      } catch (e) {
+        showToast('❌ Ошибка: ' + e.message);
+      }
+    }
 
-function previewImg(input) {
-  const preview = document.getElementById('img-preview');
-  if (input.files && input.files[0]) {
-    const reader = new FileReader();
-    reader.onload = e => { preview.src = e.target.result; preview.classList.add('show'); };
-    reader.readAsDataURL(input.files[0]);
-  }
-}
+    function previewImg(input) {
+      const preview = document.getElementById('img-preview');
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = e => { preview.src = e.target.result; preview.classList.add('show'); };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
 
-// ── DELETE ──────────────────────────────────────────────────
-let pendingDeleteId = null;
-function confirmDelete(id, name) {
-  pendingDeleteId = id;
-  document.getElementById('confirm-text').textContent = `Удалить товар "${name}"? Это действие необратимо.`;
-  document.getElementById('confirm-dialog').classList.add('open');
-  document.getElementById('confirm-ok').onclick = deleteProduct;
-}
-function closeConfirm() {
-  document.getElementById('confirm-dialog').classList.remove('open');
-  pendingDeleteId = null;
-}
-async function deleteProduct() {
-  if (!pendingDeleteId) return;
-  try {
-    const res = await fetch(`${API}/${pendingDeleteId}`, { method: 'DELETE' });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error);
-    closeConfirm();
-    await loadProducts();
-    showToast('✅ Товар удалён');
-  } catch(e) {
-    showToast('❌ Ошибка: ' + e.message);
-    closeConfirm();
-  }
-}
+    // ── DELETE ──────────────────────────────────────────────────
+    let pendingDeleteId = null;
+    function confirmDelete(id, name) {
+      pendingDeleteId = id;
+      document.getElementById('confirm-text').textContent = `Удалить товар "${name}"? Это действие необратимо.`;
+      document.getElementById('confirm-dialog').classList.add('open');
+      document.getElementById('confirm-ok').onclick = deleteProduct;
+    }
+    function closeConfirm() {
+      document.getElementById('confirm-dialog').classList.remove('open');
+      pendingDeleteId = null;
+    }
+    async function deleteProduct() {
+      if (!pendingDeleteId) return;
+      try {
+        const res = await fetch(`${API}/${pendingDeleteId}`, { method: 'DELETE' });
+        const json = await res.json();
+        if (!json.success) throw new Error(json.error);
+        closeConfirm();
+        await loadProducts();
+        showToast('✅ Товар удалён');
+      } catch (e) {
+        showToast('❌ Ошибка: ' + e.message);
+        closeConfirm();
+      }
+    }
 
-// ── SECTIONS ────────────────────────────────────────────────
-function showSection(s) {
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-}
+    // ── SECTIONS ────────────────────────────────────────────────
+    function showSection(s) {
+      // Hide all sections
+      document.getElementById('section-products').style.display = s === 'products' ? '' : 'none';
+      document.getElementById('section-categories').style.display = s === 'categories' ? '' : 'none';
+      // Update sidebar
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      const navEl = document.getElementById('nav-' + s);
+      if (navEl) navEl.classList.add('active');
+      // Update topbar title & action button
+      const titles = { products: 'Управление товарами', categories: 'Управление категориями' };
+      document.getElementById('page-title').textContent = titles[s] || 'Панель управления';
+      const addBtn = document.querySelector('.topbar-actions .btn-primary');
+      if (s === 'products') {
+        addBtn.textContent = '+ Добавить товар'; addBtn.onclick = openAddModal;
+      } else if (s === 'categories') {
+        addBtn.textContent = '+ Добавить категорию'; addBtn.onclick = openAddCatModal;
+      }
+      if (s === 'categories') loadCategories();
+    }
 
-// ── TOAST ───────────────────────────────────────────────────
-let toastTimer;
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
-}
+    // ── CATEGORIES CRUD ──────────────────────────────────────────
+    const CAT_API = '/api/categories';
+    let allCategories = [];
 
-// ── KEYBOARD ────────────────────────────────────────────────
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeModal(); closeConfirm(); }
-});
+    async function loadCategories() {
+      const tbody = document.getElementById('cat-table-body');
+      tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><div class="emoji">⏳</div>Загрузка...</div></td></tr>';
+      try {
+        const json = await fetch(CAT_API).then(r => r.json());
+        allCategories = json.data || [];
+        tbody.innerHTML = allCategories.length ? allCategories.map(c => `
+      <tr>
+        <td><img class="product-thumb" src="${c.img || '/images/category_sets.png'}" onerror="this.src='/images/category_sets.png'"></td>
+        <td><code style="background:#F4F6FA;padding:.2rem .5rem;border-radius:4px;font-size:.78rem">${c.id}</code></td>
+        <td><strong>${c.name}</strong></td>
+        <td>${c.name_kz}</td>
+        <td><div class="action-btns">
+          <button class="btn btn-secondary btn-sm" onclick="openEditCatModal('${c.id}')">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="confirmDeleteCat('${c.id}','${(c.name || '').replace(/'/g, "\\'")}')" ${allCategories.length <= 1 ? 'disabled title="Нельзя удалить последнюю категорию"' : ''}>🗑️</button>
+        </div></td>
+      </tr>`).join('') :
+          '<tr><td colspan="5"><div class="empty-state"><div class="emoji">📂</div>Нет категорий</div></td></tr>';
+      } catch (e) { tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state">Ошибка загрузки</div></td></tr>'; }
+    }
 
-// ── INIT ────────────────────────────────────────────────────
-loadProducts();
-</script>
+    function openAddCatModal() {
+      document.getElementById('cat-modal-title').textContent = 'Добавить категорию';
+      document.getElementById('cat-edit-id').value = '';
+      document.getElementById('cat-form').reset();
+      document.getElementById('cat-id').disabled = false;
+      document.getElementById('cat-modal').classList.add('open');
+    }
+    function openEditCatModal(id) {
+      const c = allCategories.find(x => x.id === id); if (!c) return;
+      document.getElementById('cat-modal-title').textContent = 'Редактировать категорию';
+      document.getElementById('cat-edit-id').value = id;
+      document.getElementById('cat-id').value = c.id;
+      document.getElementById('cat-id').disabled = true;
+      document.getElementById('cat-name').value = c.name || '';
+      document.getElementById('cat-name-kz').value = c.name_kz || '';
+      document.getElementById('cat-img').value = c.img || '';
+      document.getElementById('cat-modal').classList.add('open');
+    }
+    function closeCatModal() { document.getElementById('cat-modal').classList.remove('open'); }
+
+    async function saveCat() {
+      const id = document.getElementById('cat-edit-id').value;
+      const catId = document.getElementById('cat-id').value.trim();
+      const name = document.getElementById('cat-name').value.trim();
+      const nameKz = document.getElementById('cat-name-kz').value.trim();
+      if (!catId || !name || !nameKz) { showToast('❌ Заполните все обязательные поля'); return; }
+      const fd = new FormData();
+      if (!id) fd.append('id', catId);
+      fd.append('name', name); fd.append('name_kz', nameKz);
+      fd.append('img_url', document.getElementById('cat-img').value);
+      try {
+        const url = id ? `${CAT_API}/${id}` : CAT_API;
+        const res = await fetch(url, { method: id ? 'PUT' : 'POST', body: fd });
+        const json = await res.json();
+        if (!json.success) throw new Error(json.error);
+        closeCatModal();
+        await loadCategories();
+        showToast(id ? '✅ Категория обновлена' : '✅ Категория добавлена');
+      } catch (e) { showToast('❌ ' + e.message); }
+    }
+
+    function confirmDeleteCat(id, name) {
+      pendingDeleteId = id;
+      document.getElementById('confirm-text').textContent = `Удалить категорию "${name}"?`;
+      document.getElementById('confirm-dialog').classList.add('open');
+      document.getElementById('confirm-ok').onclick = deleteCat;
+    }
+    async function deleteCat() {
+      try {
+        const res = await fetch(`${CAT_API}/${pendingDeleteId}`, { method: 'DELETE' });
+        const json = await res.json();
+        if (!json.success) throw new Error(json.error);
+        closeConfirm(); await loadCategories(); showToast('✅ Категория удалена');
+      } catch (e) { showToast('❌ ' + e.message); closeConfirm(); }
+    }
+
+    // ── TOAST ───────────────────────────────────────────────────
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    // ── KEYBOARD ────────────────────────────────────────────────
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeModal(); closeConfirm(); }
+    });
+
+    // ── INIT ────────────────────────────────────────────────────
+    loadProducts();
+  </script>
 </body>
+
 </html>
