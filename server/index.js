@@ -29,18 +29,25 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// ── Catch-all: serve index.html for page navigation ─────────
+// ── Catch-all: serve requested .html or fallback to index.html
 app.get('*', (req, res) => {
-    // Skip asset requests (css, js, images, etc.)
     const ext = path.extname(req.path);
+
+    // Non-HTML asset not found by static middleware → 404
     if (ext && ext !== '.html') {
-        return res.status(404).send('Not found');
+        return res.status(404).send('Asset not found');
     }
-    const indexPath = path.resolve(ROOT_DIR, 'index.html');
-    res.sendFile(indexPath, (err) => {
+
+    // Try to serve the exact HTML file requested (e.g. /about → about.html, /admin.html → admin.html)
+    const name = req.path.replace(/^\//, '').replace(/\.html$/, '') || 'index';
+    const filePath = path.resolve(ROOT_DIR, `${name}.html`);
+
+    res.sendFile(filePath, (err) => {
         if (err) {
-            console.error('❌ Cannot serve index.html:', err.message, '| ROOT_DIR:', ROOT_DIR);
-            res.status(404).send('Page not found');
+            // Fallback to index.html for unknown routes
+            res.sendFile(path.resolve(ROOT_DIR, 'index.html'), (err2) => {
+                if (err2) res.status(404).send('Page not found');
+            });
         }
     });
 });
