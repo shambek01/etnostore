@@ -79,7 +79,7 @@
             <span class="qty-value">${item.qty}</span>
             <button class="qty-btn" onclick="altynUI.changeQty('${item.id}', 1)">+</button>
           </div>
-          <div class="cart-item-remove" onclick="altynUI.removeFromCart('${item.id}')">✕ Удалить</div>
+          <div class-item-remove" onclick="altynUI.removeFromCart('${item.id}')">✕ Удалить</div>
         </div>
       </div>`).join('');
 

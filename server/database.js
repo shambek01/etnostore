@@ -61,6 +61,28 @@ function initSchema() {
       is_main    INTEGER DEFAULT 0,
       FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
     );
+
+    CREATE TABLE IF NOT EXISTS orders (
+      id               TEXT PRIMARY KEY,
+      created_at       TEXT DEFAULT CURRENT_TIMESTAMP,
+      customer_name    TEXT NOT NULL,
+      customer_phone   TEXT NOT NULL,
+      customer_email   TEXT,
+      delivery_city    TEXT NOT NULL,
+      delivery_address TEXT NOT NULL,
+      total_amount     INTEGER NOT NULL,
+      status           TEXT DEFAULT 'new' -- 'new', 'processing', 'delivered', 'cancelled'
+    );
+
+    CREATE TABLE IF NOT EXISTS order_items (
+      id           TEXT PRIMARY KEY,
+      order_id     TEXT NOT NULL,
+      product_id   TEXT NOT NULL,
+      product_name TEXT NOT NULL,
+      quantity     INTEGER NOT NULL DEFAULT 1,
+      price        INTEGER NOT NULL,
+      FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+    );
   `);
 
   // Seed products if table is empty

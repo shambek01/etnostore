@@ -159,6 +159,33 @@
             'contact.message': 'Сообщение',
             'contact.send': 'Отправить',
             'contact.whatsapp': 'Написать в WhatsApp',
+
+            // Checkout
+            'checkout.title': 'Оформление заказа',
+            'checkout.back': '← Вернуться к покупкам',
+            'checkout.secure': 'Безопасное оформление',
+            'checkout.contact_title': '1. Контактные данные',
+            'checkout.name': 'ФИО *',
+            'checkout.phone': 'Телефон *',
+            'checkout.email': 'Email (опционально)',
+            'checkout.delivery_title': '2. Доставка',
+            'checkout.city': 'Город *',
+            'checkout.select_city': 'Выберите город',
+            'checkout.address': 'Адрес доставки *',
+            'checkout.payment_title': '3. Оплата',
+            'checkout.pm_kaspi': 'Перевод по номеру телефона',
+            'checkout.cash': 'Наличными',
+            'checkout.pm_cash': 'При получении курьеру',
+            'checkout.submit': 'Подтвердить заказ',
+            'checkout.summary_title': 'Ваш заказ',
+            'checkout.subtotal': 'Товары',
+            'checkout.delivery': 'Доставка',
+            'checkout.free': 'Бесплатно',
+            'checkout.total': 'Итого',
+            'checkout.success_title': 'Спасибо за заказ!',
+            'checkout.success_desc': 'Ваш заказ успешно оформлен. Мы свяжемся с вами в ближайшее время для подтверждения.',
+            'checkout.back_home': 'На главную',
+            'checkout.empty': 'Ваша корзина пуста'
         },
 
         kz: {

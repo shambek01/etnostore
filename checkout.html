@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Altyn Biye — Оформление заказа.">
+    <title>Altyn Biye — Оформление заказа</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/checkout.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════════════
+       HEADER (Simplified for Checkout)
+  ═══════════════════════════════════════ -->
+    <header class="site-header" id="site-header" style="border-bottom: 1px solid var(--c-border);">
+        <div class="container"
+            style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0;">
+            <!-- Logo -->
+            <div class="header-logo">
+                <a href="index.html">
+                    <span class="logo-text" style="font-size: 1.5rem;">Altyn Biye</span>
+                </a>
+            </div>
+
+            <!-- Secure Checkout Note -->
+            <div
+                style="display: flex; align-items: center; gap: 8px; font-family: var(--f-serif); font-size: 0.9rem; color: var(--c-text-light);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0110 0v4" />
+                </svg>
+                <span data-i18n="checkout.secure">Безопасное оформление</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="checkout-page">
+        <div class="container pb-6 pt-3">
+
+            <a href="javascript:history.back()" class="back-link" data-i18n="checkout.back">← Вернуться к покупкам</a>
+            <h1 class="checkout-title" data-i18n="checkout.title">Оформление заказа</h1>
+
+            <div class="checkout-layout">
+                <!-- Left: Form -->
+                <div class="checkout-form-container">
+                    <form id="checkout-form" class="checkout-form">
+
+                        <!-- Contact Info -->
+                        <section class="checkout-section">
+                            <h2 class="checkout-section-title" data-i18n="checkout.contact_title">1. Контактные данные
+                            </h2>
+                            <div class="form-grid">
+                                <div class="form-group full">
+                                    <label for="c-name" data-i18n="checkout.name">ФИО *</label>
+                                    <input type="text" id="c-name" required placeholder="Иванов Иван">
+                                </div>
+                                <div class="form-group half">
+                                    <label for="c-phone" data-i18n="checkout.phone">Телефон *</label>
+                                    <input type="tel" id="c-phone" required placeholder="+7 (700) 000-00-00">
+                                </div>
+                                <div class="form-group half">
+                                    <label for="c-email" data-i18n="checkout.email">Email (опционально)</label>
+                                    <input type="email" id="c-email" placeholder="example@gmail.com">
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Delivery Info -->
+                        <section class="checkout-section">
+                            <h2 class="checkout-section-title" data-i18n="checkout.delivery_title">2. Доставка</h2>
+                            <div class="form-grid">
+                                <div class="form-group full">
+                                    <label for="c-city" data-i18n="checkout.city">Город *</label>
+                                    <!-- Using select for simplicity, but can be text input -->
+                                    <select id="c-city" required>
+                                        <option value="" disabled selected data-i18n="checkout.select_city">Выберите
+                                            город</option>
+                                        <option value="Алматы">Алматы</option>
+                                        <option value="Астана">Астана</option>
+                                        <option value="Шымкент">Шымкент</option>
+                                        <option value="Актобе">Актобе</option>
+                                        <option value="Қарағанды">Қарағанды</option>
+                                        <option value="Тараз">Тараз</option>
+                                        <option value="Другой">Другой город</option>
+                                    </select>
+                                </div>
+                                <div class="form-group full">
+                                    <label for="c-address" data-i18n="checkout.address">Адрес доставки *</label>
+                                    <input type="text" id="c-address" required placeholder="ул. Абая 1, кв 12">
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Payment Info -->
+                        <section class="checkout-section">
+                            <h2 class="checkout-section-title" data-i18n="checkout.payment_title">3. Оплата</h2>
+                            <div class="payment-methods">
+                                <label class="payment-method selected">
+                                    <input type="radio" name="payment" value="kaspi" checked>
+                                    <span class="pm-info">
+                                        <span class="pm-name">Kaspi.kz</span>
+                                        <span class="pm-desc" data-i18n="checkout.pm_kaspi">Перевод по номеру
+                                            телефона</span>
+                                    </span>
+                                </label>
+                                <label class="payment-method">
+                                    <input type="radio" name="payment" value="cash">
+                                    <span class="pm-info">
+                                        <span class="pm-name" data-i18n="checkout.cash">Наличными</span>
+                                        <span class="pm-desc" data-i18n="checkout.pm_cash">При получении курьеру</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </section>
+
+                        <button type="submit" class="btn btn--primary btn--large btn--full submit-btn"
+                            id="submit-order-btn">
+                            <span data-i18n="checkout.submit">Подтвердить заказ</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right: Summary -->
+                <div class="checkout-summary">
+                    <h2 class="checkout-section-title" data-i18n="checkout.summary_title">Ваш заказ</h2>
+                    <div class="checkout-items" id="checkout-items">
+                        <!-- Items rendered here by JS -->
+                    </div>
+
+                    <div class="checkout-totals">
+                        <div class="total-row">
+                            <span data-i18n="checkout.subtotal">Товары</span>
+                            <span id="checkout-subtotal">0 ₸</span>
+                        </div>
+                        <div class="total-row">
+                            <span data-i18n="checkout.delivery">Доставка</span>
+                            <span data-i18n="checkout.free">Бесплатно</span>
+                        </div>
+                        <div class="total-row total-final">
+                            <span data-i18n="checkout.total">Итого</span>
+                            <span id="checkout-total">0 ₸</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Message (Hidden by default) -->
+            <div id="checkout-success" class="checkout-success" style="display: none;">
+                <div class="success-icon">✓</div>
+                <h2 data-i18n="checkout.success_title">Спасибо за заказ!</h2>
+                <p data-i18n="checkout.success_desc">Ваш заказ успешно оформлен. Мы свяжемся с вами в ближайшее время
+                    для подтверждения.</p>
+                <div class="success-order-id" id="success-order-id">№ заказа: ...</div>
+                <a href="index.html" class="btn btn--primary" style="margin-top: 2rem;"
+                    data-i18n="checkout.back_home">На главную</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- JS Scripts -->
+    <script src="js/i18n.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+
+</html>

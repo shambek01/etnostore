@@ -1,0 +1,326 @@
+/* styles/checkout.css */
+
+.checkout-page {
+    background: var(--c-bg);
+    min-height: calc(100vh - 80px);
+    /* header approx */
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--c-text-light);
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.back-link:hover {
+    color: var(--c-primary);
+}
+
+.checkout-title {
+    font-family: var(--f-serif);
+    font-size: 2.5rem;
+    color: var(--c-primary);
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.checkout-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 40px;
+    align-items: start;
+}
+
+/* ────────────────────────────────────
+   LEFT: FORMS
+───────────────────────────────────── */
+.checkout-form-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.checkout-section {
+    margin-bottom: 2.5rem;
+}
+
+.checkout-section:last-child {
+    margin-bottom: 0;
+}
+
+.checkout-section-title {
+    font-size: 1.25rem;
+    color: var(--c-primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--c-border);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--c-text);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--c-border);
+    border-radius: 6px;
+    background: var(--c-bg);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--c-text);
+    transition: all 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--c-accent);
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
+}
+
+.form-group input::placeholder {
+    color: #a0a0a0;
+}
+
+/* Payment Methods */
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.payment-method {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    border: 1px solid var(--c-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.payment-method:hover {
+    border-color: var(--c-primary);
+}
+
+.payment-method.selected {
+    border-color: var(--c-accent);
+    background: rgba(192, 57, 43, 0.02);
+}
+
+.payment-method input[type="radio"] {
+    accent-color: var(--c-accent);
+    transform: scale(1.2);
+}
+
+.pm-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.pm-name {
+    font-weight: 500;
+    color: var(--c-text);
+}
+
+.pm-desc {
+    font-size: 0.85rem;
+    color: var(--c-text-light);
+}
+
+.submit-btn {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+}
+
+/* ────────────────────────────────────
+   RIGHT: SUMMARY
+───────────────────────────────────── */
+.checkout-summary {
+    background: #faf8f5;
+    border: 1px solid var(--c-border);
+    border-radius: 12px;
+    padding: 30px;
+    position: sticky;
+    top: 100px;
+}
+
+.checkout-items {
+    max-height: 40vh;
+    overflow-y: auto;
+    margin-bottom: 2rem;
+    padding-right: 10px;
+}
+
+.checkout-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.checkout-items::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.checkout-items::-webkit-scrollbar-thumb {
+    background: #dcdnc8;
+    border-radius: 4px;
+}
+
+.checkout-item {
+    display: flex;
+    gap: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.checkout-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.ci-img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #fff;
+    border: 1px solid var(--c-border);
+}
+
+.ci-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ci-name {
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.ci-meta {
+    font-size: 0.85rem;
+    color: var(--c-text-light);
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkout-totals {
+    border-top: 2px solid var(--c-border);
+    padding-top: 1.5rem;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    color: var(--c-text-light);
+}
+
+.total-final {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--c-primary);
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+/* ────────────────────────────────────
+   SUCCESS SCREEN
+───────────────────────────────────── */
+.checkout-success {
+    background: #fff;
+    border-radius: 12px;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: #2ecc71;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    margin: 0 auto 2rem;
+}
+
+.checkout-success h2 {
+    font-family: var(--f-serif);
+    font-size: 2.2rem;
+    color: var(--c-primary);
+    margin-bottom: 1rem;
+}
+
+.checkout-success p {
+    color: var(--c-text-light);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.success-order-id {
+    font-size: 1.1rem;
+    font-family: monospace;
+    background: var(--c-bg);
+    padding: 10px 20px;
+    border-radius: 6px;
+    display: inline-block;
+    border: 1px dashed var(--c-border);
+}
+
+/* ────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────── */
+@media (max-width: 900px) {
+    .checkout-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .checkout-summary {
+        position: static;
+        order: -1;
+        /* Summary goes first on mobile */
+    }
+}
+
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .checkout-form-container {
+        padding: 25px 20px;
+    }
+}

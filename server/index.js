@@ -27,6 +27,7 @@ app.use(express.static(ROOT_DIR));
 app.use('/api/products', require(path.join(__dirname, 'routes/products')));
 app.use('/api/categories', require(path.join(__dirname, 'routes/categories')));
 app.use('/api/attributes', require(path.join(__dirname, 'routes/attributes')));
+app.use('/api/orders', require(path.join(__dirname, 'routes/orders')));
 
 // Health check
 app.get('/api/health', (req, res) => {
