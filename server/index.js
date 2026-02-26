@@ -24,6 +24,7 @@ app.use(express.static(ROOT_DIR));
 // ── API Routes ──────────────────────────────────────────────
 app.use('/api/products', require('./routes/products'));
 app.use('/api/categories', require('./routes/categories'));
+app.use('/api/attributes', require('./routes/attributes'));
 
 // Health check
 app.get('/api/health', (req, res) => {

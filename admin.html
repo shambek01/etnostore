@@ -689,6 +689,8 @@
         Товары</div>
       <div class="nav-item" id="nav-categories" onclick="showSection('categories')"><span class="icon">🏷️</span>
         Категории</div>
+      <div class="nav-item" id="nav-attributes" onclick="showSection('attributes')"><span class="icon">✨</span>
+        Атрибуты</div>
       <div class="nav-item" onclick="showSection('stats')"><span class="icon">📊</span> Статистика</div>
       <div class="nav-section">Сайт</div>
       <div class="nav-item" onclick="window.open('/','_blank')"><span class="icon">🏠</span> Главная</div>
@@ -801,7 +803,7 @@
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
         <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:#8B6508">Управление
           категориями</h2>
-        <button class="btn btn-primary" onclick="openAddCatModal()">+ Добавить категорию</button>
+        <button class="btn btn-primary" onclick="window.adminCategories.openModal()">+ Добавить категорию</button>
       </div>
       <div class="table-wrap">
         <table>
@@ -826,6 +828,37 @@
         </table>
       </div>
     </div>
+
+    <!-- ATTRIBUTES SECTION -->
+    <div class="content" id="section-attributes" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:#8B6508">Управление
+          атрибутами</h2>
+        <button class="btn btn-primary" onclick="window.adminAttributes.openModal()">+ Добавить атрибут</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Тип</th>
+              <th>Название RU</th>
+              <th>Название KZ</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="attr-table-body">
+            <tr>
+              <td colspan="5">
+                <div class="empty-state">
+                  <div class="emoji">⏳</div>Загрузка...
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <!-- CATEGORY MODAL -->
@@ -833,7 +866,7 @@
     <div class="modal">
       <div class="modal-header">
         <h2 id="cat-modal-title">Добавить категорию</h2>
-        <button class="modal-close" onclick="closeCatModal()">✕</button>
+        <button class="modal-close" onclick="window.adminCategories.closeModal()">✕</button>
       </div>
       <form class="modal-body" id="cat-form">
         <input type="hidden" id="cat-edit-id">
@@ -858,8 +891,52 @@
         </div>
       </form>
       <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="closeCatModal()">Отмена</button>
-        <button class="btn btn-primary" onclick="saveCat()">💾 Сохранить</button>
+        <button class="btn btn-secondary" onclick="window.adminCategories.closeModal()">Отмена</button>
+        <button class="btn btn-primary" onclick="window.adminCategories.save()">💾 Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATTRIBUTE MODAL -->
+  <div class="modal-overlay" id="attr-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="attr-modal-title">Добавить атрибут</h2>
+        <button class="modal-close" onclick="window.adminAttributes.closeModal()">✕</button>
+      </div>
+      <form class="modal-body" id="attr-form">
+        <input type="hidden" id="attr-edit-id">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>ID (slug) *</label>
+            <input type="text" id="attr-id" placeholder="gold585" required>
+          </div>
+          <div class="form-group">
+            <label>Тип *</label>
+            <select id="attr-type" required>
+              <option value="">Выберите тип</option>
+              <option value="metal">Металл</option>
+              <option value="stone">Камень</option>
+              <option value="badge">Метка</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Название RU *</label>
+            <input type="text" id="attr-name" placeholder="Золото 585" required>
+          </div>
+          <div class="form-group">
+            <label>Название KZ *</label>
+            <input type="text" id="attr-name-kz" placeholder="Алтын 585" required>
+          </div>
+          <div class="form-group full">
+            <label>Цвет (для меток)</label>
+            <input type="color" id="attr-color" value="#CCCCCC">
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="window.adminAttributes.closeModal()">Отмена</button>
+        <button class="btn btn-primary" onclick="window.adminAttributes.save()">💾 Сохранить</button>
       </div>
     </div>
   </div>
@@ -886,22 +963,11 @@
             <label>Категория *</label>
             <select id="f-category" required>
               <option value="">Выберите...</option>
-              <option value="necklaces">Ожерелья</option>
-              <option value="earrings">Серьги</option>
-              <option value="bracelets">Браслеты</option>
-              <option value="rings">Кольца</option>
-              <option value="headpieces">Головные украшения</option>
-              <option value="sets">Свадебные наборы</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Метка</label>
-            <select id="f-badge">
-              <option value="">Нет</option>
-              <option value="hit">Хит продаж</option>
-              <option value="new">Новинка</option>
-              <option value="sale">Скидка</option>
-            </select>
+            <label>Рейтинг (1-5)</label>
+            <input type="number" id="f-rating" value="5" min="1" max="5" step="0.1">
           </div>
           <div class="form-group">
             <label>Цена (₸) *</label>
@@ -911,58 +977,65 @@
             <label>Старая цена (₸)</label>
             <input type="number" id="f-old-price" placeholder="100000" min="0">
           </div>
+        </div>
+        <div class="form-grid">
           <div class="form-group">
             <label>Металл</label>
-            <select id="f-metal">
-              <option value="gold585">Золото 585</option>
-              <option value="gold750">Золото 750</option>
-              <option value="silver">Серебро</option>
+            <select id="p-metal">
+              <option value="">Без металла</option>
             </select>
           </div>
           <div class="form-group">
             <label>Камень</label>
-            <select id="f-stone">
-              <option value="turquoise">Бирюза</option>
-              <option value="pearl">Жемчуг</option>
-              <option value="coral">Коралл</option>
-              <option value="garnet">Гранат</option>
+            <select id="p-stone">
+              <option value="">Без камня</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Рейтинг (1-5)</label>
-            <input type="number" id="f-rating" value="5" min="1" max="5" step="0.1">
+            <label>Материал (Сборная строка)</label>
+            <input type="text" id="p-material" placeholder="Например: Золото 585 · Бирюза">
           </div>
           <div class="form-group">
-            <label>В наличии</label>
-            <select id="f-stock">
-              <option value="1">Да</option>
-              <option value="0">Нет</option>
+            <label>Метка</label>
+            <select id="p-badge">
+              <option value="">Нет метки</option>
             </select>
-          </div>
-          <div class="form-group full">
-            <label>Материал</label>
-            <input type="text" id="f-material" placeholder="Золото 585 · Бирюза">
-          </div>
-          <div class="form-group full">
-            <label>Фото товара</label>
-            <input type="file" id="f-img" accept="image/*" onchange="previewImg(this)">
-            <img id="img-preview" class="img-preview" alt="Preview">
-            <div style="margin-top:.4rem">
-              <label>Или URL фото</label>
-              <input type="text" id="f-img-url" placeholder="/images/category_necklaces.png">
-            </div>
-          </div>
-          <div class="form-group full">
-            <label>Описание</label>
-            <textarea id="f-description" placeholder="Подробное описание украшения..."></textarea>
           </div>
         </div>
-      </form>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="closeModal()">Отмена</button>
-        <button class="btn btn-primary" onclick="saveProduct()">💾 Сохранить</button>
-      </div>
+
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Описание (RU)</label>
+            <textarea id="p-desc" placeholder="Краткое описание товара..."></textarea>
+          </div>
+          <div class="form-group full">
+            <label>Описание (KZ)</label>
+            <textarea id="p-desc-kz" placeholder="Товардың қысқаша сипаттамасы..."></textarea>
+          </div>
+        </div>
+        <div class="form-group full">
+          <label>Фото товара</label>
+          <input type="file" id="f-img" accept="image/*" onchange="previewImg(this)">
+          <img id="img-preview" class="img-preview" alt="Preview">
+          <div style="margin-top:.4rem">
+            <label>Или URL фото</label>
+            <input type="text" id="f-img-url" placeholder="/images/category_necklaces.png">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>В наличии</label>
+          <select id="f-stock">
+            <option value="1">Да</option>
+            <option value="0">Нет</option>
+          </select>
+        </div>
     </div>
+    </form>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal()">Отмена</button>
+      <button class="btn btn-primary" onclick="saveProduct()">💾 Сохранить</button>
+    </div>
+  </div>
   </div>
 
   <!-- CONFIRM DIALOG -->
@@ -982,11 +1055,13 @@
 
   <script>
     const API = '/api/products';
-    const CAT_NAMES = { necklaces: 'Ожерелья', earrings: 'Серьги', bracelets: 'Браслеты', rings: 'Кольца', headpieces: 'Головные украшения', sets: 'Свадебные наборы' };
-    const BADGE_CLS = { hit: 'badge-hit', new: 'badge-new', sale: 'badge-sale', '': { class: 'badge-none', label: '—' } };
-    const BADGE_LABELS = { hit: 'Хит', new: 'Новинка', sale: 'Скидка', '': { label: '—' } };
+    // const CAT_NAMES = { necklaces: 'Ожерелья', earrings: 'Серьги', bracelets: 'Браслеты', rings: 'Кольца', headpieces: 'Головные украшения', sets: 'Свадебные наборы' };
+    // const BADGE_CLS = { hit: 'badge-hit', new: 'badge-new', sale: 'badge-sale', '': { class: 'badge-none', label: '—' } };
+    // const BADGE_LABELS = { hit: 'Хит', new: 'Новинка', sale: 'Скидка', '': { label: '—' } };
 
     let allProducts = [];
+    let allCategories = []; // Global for products section
+    let allAttributes = []; // Global for products section
 
     // ── FETCH & RENDER ──────────────────────────────────────────
     async function loadProducts() {
@@ -1020,20 +1095,27 @@
         tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="emoji">📦</div>Товаров не найдено</div></td></tr>`;
         return;
       }
-      tbody.innerHTML = products.map(p => `
+      tbody.innerHTML = products.map(p => {
+        const category = allCategories.find(c => c.id === p.category);
+        const metal = allAttributes.find(a => a.type === 'metal' && a.id === p.metal);
+        const badge = allAttributes.find(a => a.type === 'badge' && a.id === p.badge);
+        const badgeClass = badge ? `badge-${badge.id}` : 'badge-none';
+        const badgeLabel = badge ? badge.name : '—';
+
+        return `
     <tr>
       <td><img class="product-thumb" src="${p.img || '/images/category_sets.png'}" alt="${p.name}" onerror="this.src='/images/category_sets.png'"></td>
       <td>
         <div class="product-name">${p.name}</div>
         <div class="product-cat">${p.material || ''}</div>
       </td>
-      <td>${CAT_NAMES[p.category] || p.category}</td>
+      <td>${category ? category.name : p.category}</td>
       <td>
         <div class="price-val">${p.price.toLocaleString('ru-KZ')} ₸</div>
         ${p.old_price ? `<span class="price-old">${p.old_price.toLocaleString('ru-KZ')} ₸</span>` : ''}
       </td>
-      <td>${p.badge ? `<span class="badge ${BADGE_CLS[p.badge] || 'badge-none'}">${BADGE_LABELS[p.badge] || p.badge}</span>` : `<span class="badge badge-none">—</span>`}</td>
-      <td>${metalLabel(p.metal)}</td>
+      <td>${p.badge ? `<span class="badge ${badgeClass}" style="background:${badge?.color || ''}">${badgeLabel}</span>` : `<span class="badge badge-none">—</span>`}</td>
+      <td>${metal ? metal.name : p.metal || '—'}</td>
       <td class="${p.in_stock ? 'stock-on' : 'stock-off'}">${p.in_stock ? '✅ Есть' : '❌ Нет'}</td>
       <td>
         <div class="action-btns">
@@ -1041,10 +1123,10 @@
           <button class="btn btn-danger btn-sm" onclick="confirmDelete('${p.id}','${p.name.replace(/'/g, "\\'")}')">🗑️</button>
         </div>
       </td>
-    </tr>`).join('');
+    </tr>`}).join('');
     }
 
-    function metalLabel(m) { const map = { gold585: 'Зол. 585', gold750: 'Зол. 750', silver: 'Серебро' }; return map[m] || m }
+    // function metalLabel(m) { const map = { gold585: 'Зол. 585', gold750: 'Зол. 750', silver: 'Серебро' }; return map[m] || m }
 
     // ── FILTER ──────────────────────────────────────────────────
     function filterTable() {
@@ -1070,12 +1152,36 @@
     }
 
     // ── MODAL ───────────────────────────────────────────────────
+    async function populateProductSelectors() {
+      const categories = await fetch('/api/categories').then(res => res.json()).then(data => data.data || []);
+      allCategories = categories; // Store globally
+      const categorySelect = document.getElementById('f-category');
+      categorySelect.innerHTML = '<option value="">Выберите...</option>' + categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+
+      const attributes = await fetch('/api/attributes').then(res => res.json()).then(data => data.data || []);
+      allAttributes = attributes; // Store globally
+
+      const metalSelect = document.getElementById('p-metal');
+      const stoneSelect = document.getElementById('p-stone');
+      const badgeSelect = document.getElementById('p-badge');
+      const filterCatSelect = document.getElementById('filter-cat');
+      const filterBadgeSelect = document.getElementById('filter-badge');
+
+      metalSelect.innerHTML = '<option value="">Без металла</option>' + attributes.filter(a => a.type === 'metal').map(a => `<option value="${a.id}">${a.name}</option>`).join('');
+      stoneSelect.innerHTML = '<option value="">Без камня</option>' + attributes.filter(a => a.type === 'stone').map(a => `<option value="${a.id}">${a.name}</option>`).join('');
+      badgeSelect.innerHTML = '<option value="">Нет метки</option>' + attributes.filter(a => a.type === 'badge').map(a => `<option value="${a.id}">${a.name}</option>`).join('');
+
+      filterCatSelect.innerHTML = '<option value="">Все категории</option>' + categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+      filterBadgeSelect.innerHTML = '<option value="">Все метки</option>' + attributes.filter(a => a.type === 'badge').map(a => `<option value="${a.id}">${a.name}</option>`).join('');
+    }
+
     function openAddModal() {
       document.getElementById('modal-title').textContent = 'Добавить товар';
       document.getElementById('edit-id').value = '';
       document.getElementById('product-form').reset();
       document.getElementById('img-preview').classList.remove('show');
       document.getElementById('product-modal').classList.add('open');
+      populateProductSelectors();
     }
 
     async function openEditModal(id) {
@@ -1086,15 +1192,20 @@
       document.getElementById('f-name').value = p.name;
       document.getElementById('f-name-kz').value = p.name_kz || '';
       document.getElementById('f-category').value = p.category;
-      document.getElementById('f-badge').value = p.badge || '';
       document.getElementById('f-price').value = p.price;
       document.getElementById('f-old-price').value = p.old_price || '';
-      document.getElementById('f-metal').value = p.metal || 'gold585';
-      document.getElementById('f-stone').value = p.stone || 'turquoise';
       document.getElementById('f-rating').value = p.rating || 5;
       document.getElementById('f-stock').value = p.in_stock ? '1' : '0';
-      document.getElementById('f-material').value = p.material || '';
-      document.getElementById('f-description').value = p.description || '';
+
+      // Populate dynamic selectors
+      await populateProductSelectors();
+      document.getElementById('p-metal').value = p.metal || '';
+      document.getElementById('p-stone').value = p.stone || '';
+      document.getElementById('p-badge').value = p.badge || '';
+
+      document.getElementById('p-material').value = p.material || '';
+      document.getElementById('p-desc').value = p.description || '';
+      document.getElementById('p-desc-kz').value = p.description_kz || '';
       document.getElementById('f-img-url').value = p.img || '';
       const preview = document.getElementById('img-preview');
       if (p.img) { preview.src = p.img; preview.classList.add('show'); }
@@ -1113,15 +1224,16 @@
       fd.append('name', document.getElementById('f-name').value);
       fd.append('name_kz', document.getElementById('f-name-kz').value);
       fd.append('category', document.getElementById('f-category').value);
-      fd.append('badge', document.getElementById('f-badge').value);
+      fd.append('badge', document.getElementById('p-badge').value);
       fd.append('price', document.getElementById('f-price').value);
       fd.append('old_price', document.getElementById('f-old-price').value);
-      fd.append('metal', document.getElementById('f-metal').value);
-      fd.append('stone', document.getElementById('f-stone').value);
+      fd.append('metal', document.getElementById('p-metal').value);
+      fd.append('stone', document.getElementById('p-stone').value);
       fd.append('rating', document.getElementById('f-rating').value);
       fd.append('in_stock', document.getElementById('f-stock').value);
-      fd.append('material', document.getElementById('f-material').value);
-      fd.append('description', document.getElementById('f-description').value);
+      fd.append('material', document.getElementById('p-material').value);
+      fd.append('description', document.getElementById('p-desc').value);
+      fd.append('description_kz', document.getElementById('p-desc-kz').value);
       fd.append('img_url', document.getElementById('f-img-url').value);
       const imgFile = document.getElementById('f-img').files[0];
       if (imgFile) fd.append('img', imgFile);
@@ -1182,105 +1294,53 @@
     }
 
     // ── SECTIONS ────────────────────────────────────────────────
-    function showSection(s) {
+    async function showSection(sec) {
       // Hide all sections
-      document.getElementById('section-products').style.display = s === 'products' ? '' : 'none';
-      document.getElementById('section-categories').style.display = s === 'categories' ? '' : 'none';
-      // Update sidebar
+      document.getElementById('section-products').style.display = 'none';
+      document.getElementById('section-categories').style.display = 'none';
+      document.getElementById('section-attributes').style.display = 'none';
+      // document.getElementById('section-stats').style.display = 'none'; // If you have a stats section
+
+      // Show active section
+      const activeSection = document.getElementById(`section-${sec}`);
+      if (activeSection) activeSection.style.display = '';
+
+      // Update sidebar active state
       document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-      const navEl = document.getElementById('nav-' + s);
+      const navEl = document.getElementById('nav-' + sec);
       if (navEl) navEl.classList.add('active');
+
       // Update topbar title & action button
-      const titles = { products: 'Управление товарами', categories: 'Управление категориями' };
-      document.getElementById('page-title').textContent = titles[s] || 'Панель управления';
-      const addBtn = document.querySelector('.topbar-actions .btn-primary');
-      if (s === 'products') {
-        addBtn.textContent = '+ Добавить товар'; addBtn.onclick = openAddModal;
-      } else if (s === 'categories') {
-        addBtn.textContent = '+ Добавить категорию'; addBtn.onclick = openAddCatModal;
+      const pageTitle = document.getElementById('page-title');
+      const actions = document.querySelector('.topbar-actions');
+      let title = 'Панель управления';
+
+      if (sec === 'products') {
+        title = 'Управление товарами';
+        actions.innerHTML = `
+          <button class="btn btn-primary" onclick="openAddModal()">+ Добавить товар</button>
+          <a href="/catalog.html" target="_blank" class="btn btn-secondary">↗ Каталог</a>
+        `;
+        await populateProductSelectors(); // Load categories and attributes for product filters
+        loadProducts();
+      } else if (sec === 'categories') {
+        title = 'Управление категориями';
+        actions.innerHTML = `
+          <button class="btn btn-primary" onclick="window.adminCategories.openModal()">+ Добавить категорию</button>
+        `;
+        window.adminCategories.load();
+      } else if (sec === 'attributes') {
+        title = 'Управление атрибутами';
+        actions.innerHTML = `
+          <button class="btn btn-primary" onclick="window.adminAttributes.openModal()">+ Добавить атрибут</button>
+        `;
+        window.adminAttributes.load();
+      } else if (sec === 'stats') {
+        title = 'Статистика';
+        actions.innerHTML = ''; // No specific actions for stats for now
       }
-      if (s === 'categories') loadCategories();
-    }
 
-    // ── CATEGORIES CRUD ──────────────────────────────────────────
-    const CAT_API = '/api/categories';
-    let allCategories = [];
-
-    async function loadCategories() {
-      const tbody = document.getElementById('cat-table-body');
-      tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><div class="emoji">⏳</div>Загрузка...</div></td></tr>';
-      try {
-        const json = await fetch(CAT_API).then(r => r.json());
-        allCategories = json.data || [];
-        tbody.innerHTML = allCategories.length ? allCategories.map(c => `
-      <tr>
-        <td><img class="product-thumb" src="${c.img || '/images/category_sets.png'}" onerror="this.src='/images/category_sets.png'"></td>
-        <td><code style="background:#F4F6FA;padding:.2rem .5rem;border-radius:4px;font-size:.78rem">${c.id}</code></td>
-        <td><strong>${c.name}</strong></td>
-        <td>${c.name_kz}</td>
-        <td><div class="action-btns">
-          <button class="btn btn-secondary btn-sm" onclick="openEditCatModal('${c.id}')">✏️</button>
-          <button class="btn btn-danger btn-sm" onclick="confirmDeleteCat('${c.id}','${(c.name || '').replace(/'/g, "\\'")}')" ${allCategories.length <= 1 ? 'disabled title="Нельзя удалить последнюю категорию"' : ''}>🗑️</button>
-        </div></td>
-      </tr>`).join('') :
-          '<tr><td colspan="5"><div class="empty-state"><div class="emoji">📂</div>Нет категорий</div></td></tr>';
-      } catch (e) { tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state">Ошибка загрузки</div></td></tr>'; }
-    }
-
-    function openAddCatModal() {
-      document.getElementById('cat-modal-title').textContent = 'Добавить категорию';
-      document.getElementById('cat-edit-id').value = '';
-      document.getElementById('cat-form').reset();
-      document.getElementById('cat-id').disabled = false;
-      document.getElementById('cat-modal').classList.add('open');
-    }
-    function openEditCatModal(id) {
-      const c = allCategories.find(x => x.id === id); if (!c) return;
-      document.getElementById('cat-modal-title').textContent = 'Редактировать категорию';
-      document.getElementById('cat-edit-id').value = id;
-      document.getElementById('cat-id').value = c.id;
-      document.getElementById('cat-id').disabled = true;
-      document.getElementById('cat-name').value = c.name || '';
-      document.getElementById('cat-name-kz').value = c.name_kz || '';
-      document.getElementById('cat-img').value = c.img || '';
-      document.getElementById('cat-modal').classList.add('open');
-    }
-    function closeCatModal() { document.getElementById('cat-modal').classList.remove('open'); }
-
-    async function saveCat() {
-      const id = document.getElementById('cat-edit-id').value;
-      const catId = document.getElementById('cat-id').value.trim();
-      const name = document.getElementById('cat-name').value.trim();
-      const nameKz = document.getElementById('cat-name-kz').value.trim();
-      if (!catId || !name || !nameKz) { showToast('❌ Заполните все обязательные поля'); return; }
-      const fd = new FormData();
-      if (!id) fd.append('id', catId);
-      fd.append('name', name); fd.append('name_kz', nameKz);
-      fd.append('img_url', document.getElementById('cat-img').value);
-      try {
-        const url = id ? `${CAT_API}/${id}` : CAT_API;
-        const res = await fetch(url, { method: id ? 'PUT' : 'POST', body: fd });
-        const json = await res.json();
-        if (!json.success) throw new Error(json.error);
-        closeCatModal();
-        await loadCategories();
-        showToast(id ? '✅ Категория обновлена' : '✅ Категория добавлена');
-      } catch (e) { showToast('❌ ' + e.message); }
-    }
-
-    function confirmDeleteCat(id, name) {
-      pendingDeleteId = id;
-      document.getElementById('confirm-text').textContent = `Удалить категорию "${name}"?`;
-      document.getElementById('confirm-dialog').classList.add('open');
-      document.getElementById('confirm-ok').onclick = deleteCat;
-    }
-    async function deleteCat() {
-      try {
-        const res = await fetch(`${CAT_API}/${pendingDeleteId}`, { method: 'DELETE' });
-        const json = await res.json();
-        if (!json.success) throw new Error(json.error);
-        closeConfirm(); await loadCategories(); showToast('✅ Категория удалена');
-      } catch (e) { showToast('❌ ' + e.message); closeConfirm(); }
+      pageTitle.textContent = title;
     }
 
     // ── TOAST ───────────────────────────────────────────────────
@@ -1295,12 +1355,14 @@
 
     // ── KEYBOARD ────────────────────────────────────────────────
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') { closeModal(); closeConfirm(); }
+      if (e.key === 'Escape') { closeModal(); closeConfirm(); window.adminCategories.closeModal(); window.adminAttributes.closeModal(); }
     });
 
     // ── INIT ────────────────────────────────────────────────────
-    loadProducts();
+    showSection('products'); // Initial load
   </script>
+  <script src="/js/admin-attributes.js"></script>
+  <script src="/js/admin-categories.js"></script>
 </body>
 
 </html>

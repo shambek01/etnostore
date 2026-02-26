@@ -122,7 +122,7 @@ router.post('/', upload.single('img'), (req, res) => {
         const db = getDb();
         const {
             name, name_kz, category, price, old_price,
-            rating, reviews, metal, stone, badge, material, description, in_stock,
+            rating, reviews, metal, stone, badge, material, description, description_kz, in_stock,
         } = req.body;
 
         if (!name || !category || !price) {
@@ -133,14 +133,14 @@ router.post('/', upload.single('img'), (req, res) => {
         const img = req.file ? `/uploads/${req.file.filename}` : (req.body.img_url || '');
 
         db.prepare(`
-      INSERT INTO products (id, name, name_kz, category, price, old_price, rating, reviews, img, metal, stone, badge, material, description, in_stock)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO products (id, name, name_kz, category, price, old_price, rating, reviews, img, metal, stone, badge, material, description, description_kz, in_stock)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
             id, name, name_kz || name, category,
             parseInt(price), old_price ? parseInt(old_price) : null,
             parseFloat(rating || '5'), parseInt(reviews || '0'),
             img, metal || 'gold585', stone || 'turquoise',
-            badge || '', material || '', description || '',
+            badge || '', material || '', description || '', description_kz || '',
             in_stock === '0' ? 0 : 1,
         );
 
@@ -160,7 +160,7 @@ router.put('/:id', upload.single('img'), (req, res) => {
 
         const {
             name, name_kz, category, price, old_price,
-            rating, reviews, metal, stone, badge, material, description, in_stock, img_url,
+            rating, reviews, metal, stone, badge, material, description, description_kz, in_stock, img_url,
         } = req.body;
 
         const img = req.file ? `/uploads/${req.file.filename}` : (img_url || existing.img);
@@ -169,7 +169,7 @@ router.put('/:id', upload.single('img'), (req, res) => {
       UPDATE products SET
         name=?, name_kz=?, category=?, price=?, old_price=?,
         rating=?, reviews=?, img=?, metal=?, stone=?,
-        badge=?, material=?, description=?, in_stock=?
+        badge=?, material=?, description=?, description_kz=?, in_stock=?
       WHERE id=?
     `).run(
             name || existing.name,
@@ -185,6 +185,7 @@ router.put('/:id', upload.single('img'), (req, res) => {
             badge !== undefined ? badge : existing.badge,
             material !== undefined ? material : existing.material,
             description !== undefined ? description : existing.description,
+            description_kz !== undefined ? description_kz : existing.description_kz,
             in_stock !== undefined ? (in_stock === '0' ? 0 : 1) : existing.in_stock,
             req.params.id,
         );

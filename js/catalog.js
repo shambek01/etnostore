@@ -8,6 +8,9 @@
     const PAGE_SIZE = 9;
 
     let allProducts = [];
+    let allAttributes = []; // Store fetched attributes for translation
+    // Filters State
+    const filters = {};
     let filteredProducts = [];
     let currentPage = 1;
 
@@ -83,6 +86,80 @@
         return Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
     }
 
+    function getAttributeName(type, id) {
+        if (!id) return '';
+        const attr = allAttributes.find(a => a.type === type && a.id === id);
+        if (!attr) return id;
+        return window._lang === 'kz' ? attr.name_kz : attr.name_ru;
+    }
+
+    function renderProducts(items) {
+        const grid = document.getElementById('catalog-grid');
+        const countEl = document.getElementById('total-count'); // Assuming 'total-count' is the element for items.length
+        if (!grid) return;
+
+        if (!items.length) {
+            grid.innerHTML = `
+                <div class="empty-state" style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--color-text-muted)">
+                    <span class="emoji" style="font-size:2rem;margin-bottom:1rem">🔍</span>
+                    <p data-i18n="catalog.empty">По вашему запросу ничего не найдено</p>
+                    <button onclick="document.getElementById('filters-clear').click()" style="margin-top:1rem;padding:.5rem 1.2rem;background:var(--color-gold);color:#fff;border:none;border-radius:4px;cursor:pointer" data-i18n="catalog.resetFilters">Сбросить фильтры</button>
+                </div>
+            `;
+            if (countEl) countEl.textContent = '0';
+            return;
+        }
+
+        grid.innerHTML = items.map(p => {
+            const isHit = p.badge === 'hit';
+            const isNew = p.badge === 'new';
+            const isSale = p.badge === 'sale';
+            const oldPriceHtml = p.old_price ? `<span class="product-old-price">${parseInt(p.old_price).toLocaleString('ru-KZ')} ₸</span>` : '';
+            const desc = window._lang === 'kz' && p.description_kz ? p.description_kz : p.description;
+
+            let badgeHtml = '';
+            if (p.badge) {
+                const bType = isHit ? 'hit' : isNew ? 'new' : isSale ? 'sale' : 'none';
+                // Assuming window.i18n.t is available or fallback to default
+                const badgeText = (window.i18n && window.i18n.t) ? window.i18n.t(`badge.${p.badge}`) : p.badge;
+                badgeHtml = `<div class="product-badge badge-${bType}" data-i18n="badge.${p.badge}">${badgeText}</div>`;
+            }
+
+            const inStockHtml = p.in_stock
+                ? `<div class="product-stock stock-in" data-i18n="product.inStock">✓ ${(window.i18n && window.i18n.t) ? window.i18n.t('product.inStock') : 'В наличии'}</div>`
+                : `<div class="product-stock stock-out" data-i18n="product.outOfStock">✗ ${(window.i18n && window.i18n.t) ? window.i18n.t('product.outOfStock') : 'Нет в наличии'}</div>`;
+            const name = window._lang === 'kz' ? (p.name_kz || p.name) : p.name;
+            const matName = window._lang === 'kz' && p.material_kz ? p.material_kz : p.material;
+
+            return `
+                <div class="product-card" onclick="window.openModal('${p.id}')">
+                    <div class="product-img-wrap">
+                        <img src="${p.img || '/images/category_sets.png'}" alt="${name}" class="product-img" loading="lazy" onerror="this.src='/images/category_sets.png'">
+                        ${badgeHtml}
+                        <button class="wishlist-btn" onclick="event.stopPropagation(); window.toggleWishlist(this)" title="В избранное">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">${name}</div>
+                        <div class="product-price">
+                            ${parseInt(p.price).toLocaleString('ru-KZ')} ₸
+                            ${oldPriceHtml}
+                        </div>
+                        <div class="product-meta">
+                            <span>★ ${p.rating} (${p.reviews})</span>
+                            <span class="meta-dot">·</span>
+                            <span>${matName}</span>
+                        </div>
+                        ${inStockHtml}
+                    </div>
+                    <button class="buy-btn" onclick="event.stopPropagation(); window.cart.add('${p.id}', '${name}', ${p.price}, '${p.img}')" ${!p.in_stock ? 'disabled' : ''}>
+                        <span data-i18n="product.addToCart">${(window.i18n && window.i18n.t) ? window.i18n.t('product.addToCart') : 'В корзину'}</span> 🛒
+                    </button>
+                </div>
+            `;
+        }).join('');
+
+        if (countEl) countEl.textContent = items.length;
+    }
     function pageSlice() {
         const start = (currentPage - 1) * PAGE_SIZE;
         return filteredProducts.slice(start, start + PAGE_SIZE);
@@ -154,15 +231,7 @@
         if (!grid) return;
         const slice = pageSlice();
 
-        if (!slice.length) {
-            grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--color-text-muted)">
-        <div style="font-size:2rem;margin-bottom:1rem">🔍</div>
-        <p data-i18n="catalog.empty">По вашему запросу ничего не найдено</p>
-        <button onclick="document.getElementById('filters-clear').click()" style="margin-top:1rem;padding:.5rem 1.2rem;background:var(--color-gold);color:#fff;border:none;border-radius:4px;cursor:pointer" data-i18n="catalog.resetFilters">Сбросить фильтры</button>
-      </div>`;
-        } else {
-            grid.innerHTML = slice.map(renderCard).join('');
-        }
+        renderProducts(slice); // Use the new renderProducts function
 
         updateCounter();
         renderPagination();
@@ -174,6 +243,7 @@
         const selectedCats = [...document.querySelectorAll('[name="cat"]:checked')].map(el => el.value);
         const selectedMetals = [...document.querySelectorAll('[name="metal"]:checked')].map(el => el.value);
         const selectedStones = [...document.querySelectorAll('[name="stone"]:checked')].map(el => el.value);
+        const selectedBadges = [...document.querySelectorAll('input[name="badge"]:checked')].map(el => el.value);
         const minPrice = parseInt(document.getElementById('price-min')?.value || '0') || 0;
         const maxPrice = parseInt(document.getElementById('price-max')?.value || '999999') || 999999;
         const sort = document.getElementById('sort-select')?.value || 'popular';
@@ -182,6 +252,7 @@
             if (selectedCats.length && !selectedCats.includes(p.category)) return false;
             if (selectedMetals.length && !selectedMetals.includes(p.metal)) return false;
             if (selectedStones.length && !selectedStones.includes(p.stone)) return false;
+            if (selectedBadges.length && !selectedBadges.includes(p.badge)) return false;
             if (p.price < minPrice || p.price > maxPrice) return false;
             return true;
         });
@@ -199,11 +270,19 @@
         renderGrid();
     }
 
-    /* ── FETCH ─────────────────────────────────────────────── */
+    // ── DATA FETCH ──────────────────────────────────────────────────
     async function fetchProducts() {
         const grid = document.getElementById('catalog-grid');
         if (grid) grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--color-text-muted)"><div style="font-size:1.5rem;margin-bottom:.5rem">⏳</div>Загрузка...</div>`;
         try {
+            // Also fetch attributes for localized filters if not already done
+            if (allAttributes.length === 0) {
+                const attrRes = await fetch('/api/attributes');
+                const attrData = await attrRes.json();
+                allAttributes = attrData.data || [];
+            }
+
+            // showLoading(true); // Assuming showLoading is defined elsewhere
             const res = await fetch(API);
             if (!res.ok) throw new Error('Server error');
             const json = await res.json();
@@ -254,9 +333,44 @@
         }
     }
 
-    /* ── INIT ──────────────────────────────────────────────── */
+    // Overwrite the normal applyLang to hook into re-rendering
+    const originalApplyLang = window.applyLang;
+    window.applyLang = function () {
+        if (originalApplyLang) originalApplyLang();
+        if (allProducts.length > 0) {
+            // Assuming window.catalog.getFilteredProducts() is meant to be filteredProducts
+            renderProducts(filteredProducts);
+        }
+        // Update filter labels
+        document.querySelectorAll('.attr-label').forEach(el => {
+            const type = el.dataset.type;
+            const id = el.dataset.id;
+            if (type && id) {
+                el.textContent = getAttributeName(type, id);
+            }
+        });
+    };
+
+    // ── INIT ────────────────────────────────────────────────────────
     function initCatalog() {
-        fetchProducts();
+        // Init state from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('cat')) {
+            filters.category = urlParams.get('cat');
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.cat === filters.category);
+            });
+        }
+        if (urlParams.has('badge')) {
+            const badge = urlParams.get('badge');
+            // Assuming we added badge filters implicitly or we can dynamically check them
+            const filterBadge = document.querySelector(`input[name="badge"][value="${badge}"]`);
+            if (filterBadge) filterBadge.checked = true;
+        }
+
+        fetchProducts().then(() => {
+            renderFilterOptions();
+        });
 
         document.getElementById('sort-select')?.addEventListener('change', applyFiltersAndSort);
         document.getElementById('apply-filters')?.addEventListener('click', applyFiltersAndSort);
